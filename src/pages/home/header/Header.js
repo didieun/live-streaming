@@ -46,7 +46,7 @@ function Header(props) {
         <LogoBox>
             {/* my studio 일때 */}
             {/*<Typography>Logo Studio</Typography>*/}
-            <Typography>Logo Aread</Typography>
+            <Typography>Logo Area</Typography>
         </LogoBox>
       </Box>
 
