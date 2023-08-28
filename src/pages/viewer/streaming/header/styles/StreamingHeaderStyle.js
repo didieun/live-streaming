@@ -1,6 +1,7 @@
 import {styled} from "@mui/material/styles";
-import {headerHeight, smallHeaderHeight} from "../../Streaming";
-import {Box, Button, IconButton, Typography} from "@mui/material";
+import {headerHeight} from "../../Streaming";
+import {Box, Button, IconButton, Popover, Typography} from "@mui/material";
+import TooltipArrowBlue from "../../../../common/images/TooltipArrowBlue.svg";
 
 export const Container = styled('div')(({ theme }) => ({
     width: '100%',
@@ -12,22 +13,11 @@ export const Container = styled('div')(({ theme }) => ({
     display:'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    '@media all and (max-width: 1800px)': {
-        height: smallHeaderHeight,
-    },
 }));
 
 export const AlignCenter = styled('div')(({ theme }) => ({
     display:'flex',
     alignItems: 'center'
-}));
-
-export const LogoBox = styled(Box)(({ theme }) => ({
-    "& p": {
-        fontSize: "1.5rem",
-        color: "#2E8C6A",
-        fontWeight: 700,
-    },
 }));
 
 export const ChannelImageBox = styled('div')(({ theme }) => ({
@@ -44,15 +34,11 @@ export const ChannelImageBox = styled('div')(({ theme }) => ({
     '& img':{
         width: '100%'
     },
-    '@media all and (max-width: 1800px)': {
-        width: 79,
-        height: 44,
-    },
 }));
 
 export const TitleText = styled(Typography)(({ theme }) => ({
     '&.MuiTypography-root':{
-        maxWidth: 440,
+        maxWidth: 390,
         fontSize: '1.25rem',
         color:'#fff',
         fontWeight: 700,
@@ -60,10 +46,6 @@ export const TitleText = styled(Typography)(({ theme }) => ({
         textOverflow:'ellipsis',
         whiteSpace:'nowrap',
         marginRight: 4,
-        '@media all and (max-width: 1800px)': {
-            maxWidth: 350,
-            fontSize: '1rem',
-        },
     }
 }));
 
@@ -77,84 +59,102 @@ export const ButtonIcon = styled(IconButton)(({ theme }) => ({
         '&.Mui-disabled':{
             opacity: 0.3
         },
-        '@media all and (max-width: 1800px)': {
-            '& svg':{
-                width: 30,
-                height: 30
-            }
-        },
     },
 }));
 
-export const ArrowButtonIcon = styled(ButtonIcon)(({ theme }) => ({
-    "&.MuiButtonBase-root": {
-        '@media all and (max-width: 1800px)': {
-            '& svg':{
-                width: 14,
-                height: 14
-            }
-        },
-    },
-}));
 
-export const MarginRight = styled('div')(({ theme }) => ({
-    marginRight: 30
-}));
+export const bellSelect = (theme) => ({
+    '& path':{
+        stroke: '#3A974C',
+    }
+});
+
+export const bell = (theme) => ({
+    '& path':{
+        stroke: '#848589',
+    }
+});
+
+export const BellButtonIcon = styled(ButtonIcon, { shouldForwardProp: (prop) => prop !== 'select' })(
+    ({ theme, select }) => ({
+        ...(select && {
+            ...bellSelect(theme),
+            '&.MuiButtonBase-root': bellSelect(theme),
+        }),
+        ...(!select && {
+            ...bell(theme),
+            '&.MuiButtonBase-root': bell(theme),
+        }),
+    }),
+);
 
 export const TextStyle = styled(Typography)(({ theme }) => ({
     '&.MuiTypography-root':{
         fontSize: '1rem',
         color:'#848589',
         fontWeight: 400,
-        '@media all and (max-width: 1800px)': {
-            fontSize: '0.75rem',
-        },
     }
 }));
 
-export const NumberText = styled(Typography)(({ theme }) => ({
-    '&.MuiTypography-root':{
-        fontSize: '1.875rem',
-        color:'#fff',
-        fontWeight: 700,
-        lineHeight: 1,
-        '@media all and (max-width: 1800px)': {
-            fontSize: '1.25rem',
-        },
-    }
-}));
-
-export const ButtonStyle = styled(Button)(({ theme }) => ({
-    "&.MuiButtonBase-root": {
-        padding: 0,
-        background:'transparent',
-        marginRight: 36,
-        '& p': {
-            fontSize: '1.25rem',
-            marginLeft: 6,
-            color:'#848589',
-            fontWeight: 400,
-            textTransform: "none",
-        },
-        "&:hover": {
-            background: "transparent",
-            opacity: 0.8
-        },
-        '@media all and (max-width: 1800px)': {
-            marginRight: 20,
-            '& p':{
-                fontSize: '0.875rem'
-            },
-            '& svg':{
-                width: 30,
-                height: 30
-            }
-        },
-        '&.Mui-disabled':{
-            opacity: 0.3
-        }
+export const joinMeSelect = (theme) => ({
+    padding: 0,
+    background:'transparent',
+    marginRight: 19,
+    '& p': {
+        fontSize: '1.25rem',
+        marginLeft: 6,
+        color:'#3A974C',
+        fontWeight: 400,
+        textTransform: "none",
     },
-}));
+    "&:hover": {
+        background: "transparent",
+        opacity: 0.8
+    },
+    '&.Mui-disabled':{
+        opacity: 0.3
+    },
+    '& path':{
+        fill: '#3A974C',
+    }
+});
+
+export const joinMe = (theme) => ({
+    padding: 0,
+    background:'transparent',
+    marginRight: 19,
+    '& p': {
+        fontSize: '1.25rem',
+        marginLeft: 6,
+        color:'#848589',
+        fontWeight: 400,
+        textTransform: "none",
+    },
+    "&:hover": {
+        background: "transparent",
+        opacity: 0.8
+    },
+    '&.Mui-disabled':{
+        opacity: 0.3
+    },
+    '& path':{
+        fill: '#848589',
+    }
+});
+
+export const JoinMeButton = styled(Button, { shouldForwardProp: (prop) => prop !== 'select' })(
+    ({ theme, select }) => ({
+        ...(select && {
+            ...joinMeSelect(theme),
+            '&.MuiButtonBase-root': joinMeSelect(theme),
+        }),
+        ...(!select && {
+            ...joinMe(theme),
+            '&.MuiButtonBase-root': joinMe(theme),
+        }),
+    }),
+);
+
 
 export const AvatarBox = styled(Box)(({ theme }) => ({
     width: 50,
@@ -168,6 +168,7 @@ export const AvatarBox = styled(Box)(({ theme }) => ({
     border: "1px solid #DADADA",
     boxSizing: "border-box",
     overflow:'hidden',
+    marginLeft: 19,
     '& img':{
         width: '100%'
     },
@@ -175,26 +176,132 @@ export const AvatarBox = styled(Box)(({ theme }) => ({
         width: 30,
         height: 30,
     },
-    '@media all and (max-width: 1800px)': {
-        width: 40,
-        height: 40,
-        '& svg':{
-            width: 30,
-            height: 30,
+}));
+
+
+export const StartStreamButton = styled(Button)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        width: 264,
+        height: 50,
+        padding: 0,
+        borderRadius: 5,
+        background:'#2e8c6a',
+        fontSize: '1.125rem',
+        color: '#fff',
+        fontWeight: 'bold',
+        textTransform: "none",
+        marginLeft: 14,
+        "&:hover": {
+            background: "rgba(35, 184, 130, 0.8)",
+        },
+        '&.Mui-disabled':{
+            opacity: 0.3
+        }
+    },
+}));
+
+export const EndStreamButton = styled(StartStreamButton)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        background:'#ef222e',
+        "&:hover": {
+            background: "rgba(239, 34, 46, 0.8)",
         },
     },
 }));
 
-export const ProfileButton = styled(ButtonStyle)(({ theme }) => ({
+export const PopoverBox = styled(Popover)(({ theme }) => ({
+    '&.MuiPopover-root':{
+        '& .MuiPaper-root':{
+            background:'transparent',
+            boxShadow: 'none',
+            paddingTop: 15,
+            paddingLeft: 40,
+        }
+    }
+}));
+
+export const PopoverBoxIn = styled('div')(({ theme }) => ({
+    background:'#2F80ED',
+    borderRadius: 6,
+    padding: '11px 10px',
+    position: 'relative',
+    '&:before':{
+        content: "''",
+        backgroundImage: `url(${TooltipArrowBlue})`,
+        backgroundRepeat:'no-repeat',
+        position: 'absolute',
+        top: -12,
+        right: 110,
+        width: 18,
+        height: 18,
+    }
+}));
+
+export const JustifySpace = styled('div')(({ theme }) => ({
+    display:'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6
+}));
+
+export const PopoverTitle = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '0.875rem',
+        fontWeight: 700,
+        color: '#fff',
+        paddingRight: 30,
+    }
+}));
+
+export const PopoverUrlText = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '0.938rem',
+        fontWeight: 400,
+        color: '#D2DEED',
+        textDecoration: 'underline'
+    }
+}));
+
+export const CopyButton = styled(Button)(({ theme }) => ({
     "&.MuiButtonBase-root": {
-        marginLeft: 36,
-        marginRight: 0,
-        '@media all and (max-width: 1800px)': {
-            marginLeft: 20,
-            '& svg':{
-                width: 14,
-                height: 14
-            }
+        minWidth: 40,
+        height: 18,
+        padding: 0,
+        background: '#DADADA',
+        fontSize: '0.75rem',
+        fontWeight: 500,
+        color: '#18181d',
+        borderRadius: 4,
+        textTransform:'none',
+        marginLeft: 10,
+        "&:hover": {
+            background: "#DADADA",
+            opacity: 0.8
         },
+        '&.Mui-disabled':{
+            opacity: 0.3
+        }
     },
+}));
+
+export const LiveBox = styled("div")(({ theme }) => ({
+    width: 78,
+    height: 30,
+    display:'inline-flex',
+    alignItems:'center',
+    justifyContent: 'center',
+    background:'#ef222e',
+    padding: '0 7px ',
+    borderRadius: 6,
+    boxSizing:'border-box',
+    '& p':{
+        fontSize: '1.063rem',
+        color: '#fff',
+        fontWeight: 700,
+        marginLeft: 4
+    },
+    '& svg':{
+        width: 24,
+        height: 24
+    }
 }));

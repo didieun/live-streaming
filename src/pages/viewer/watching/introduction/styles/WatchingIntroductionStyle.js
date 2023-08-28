@@ -1,9 +1,10 @@
 import {styled} from "@mui/material/styles";
-import {asideWidth, smallAsideWidth} from "../../Watching";
+import {watchingAsideWidth, smallAsideWidth} from "../../Watching";
 import {Box, Button, Typography} from "@mui/material";
+import {AlignCenter} from "../../info/styles/WatchingInfoStyle";
 
 export const openedMixin = (theme) => ({
-    width: `calc(100% - ${asideWidth}px)`,
+    width: `calc(100% - ${watchingAsideWidth}px)`,
     padding: '25px 12px',
     boxSizing: 'border-box',
     '@media all and (max-width: 1400px)': {
@@ -86,12 +87,15 @@ export const UserName = styled(Typography)(({ theme }) => ({
 }));
 
 export const BoxStyle = styled('div')(({ theme }) => ({
-    width: '100%',
+    width: 'calc(100% - 250px)',
     minHeight: 114,
     borderRadius: 3,
     border: '1px solid rgba(255, 255, 255, 0.3)',
     padding: '12px 11px',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    '@media all and (max-width: 1500px)': {
+        width: '100%',
+    },
 }));
 
 export const TextStyle = styled(Typography)(({ theme }) => ({
@@ -121,4 +125,58 @@ export const ShowMoreButton = styled(Button)(({ theme }) => ({
             fontSize: '0.75rem',
         },
     },
+}));
+
+export const MarginBottom = styled('div')(({ theme }) => ({
+    width: 'calc(100% - 250px - 20px)',
+    marginBottom: 26,
+    '@media all and (max-width: 1500px)': {
+        width: '100%',
+    },
+}));
+
+
+export const TagBox = styled(AlignCenter)(({ theme }) => ({
+    marginBottom: 14,
+    '@media all and (max-width: 1500px)': {
+        marginBottom: 8,
+    },
+}));
+
+export const TagBoxIn = styled('div')(({ theme }) => ({
+    height: 28,
+    padding: '0 9px',
+    background: '#d2d2d2',
+    borderRadius: 90,
+    marginRight: 8,
+    display:'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '& p':{
+        fontSize: '0.875rem',
+        color: 'rgba(24, 24, 29, 0.7)',
+        fontWeight: 500
+    },
+    '&:last-child':{
+        marginRight: 0
+    },
+    '@media all and (max-width: 1500px)': {
+        height: 23,
+        marginRight: 5,
+        '& p':{
+            fontSize: '0.75rem',
+        },
+    },
+}));
+
+export const TitleText = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '1.125rem',
+        color: '#fff',
+        fontWeight: 700,
+        lineHeight: '24px',
+        '@media all and (max-width: 1500px)': {
+            fontSize: '1rem',
+        },
+    }
 }));

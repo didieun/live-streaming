@@ -6,24 +6,86 @@ export const Container = styled('div')(({ theme }) => ({
 }));
 
 export const VideoBox = styled('div')(({ theme }) => ({
-    position:'relative',
-    width: 585,
+    width: 558,
     aspectRatio: 16 / 9,
-    background: '#848589',
-    boxShadow: '0px 1.6414103507995605px 1.6414103507995605px 0px rgba(0, 0, 0, 0.25)',
+    background:'#848589',
     boxSizing:'border-box',
-    marginBottom: 20
+    position: 'relative',
+    boxShadow: '0px 1.6414103507995605px 1.6414103507995605px 0px rgba(0, 0, 0, 0.25)',
+    display:'flex',
+    alignItems:'center',
+    justifyContent:'center',
+    overflow:'hidden',
+    marginBottom: 20,
+    '& img':{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        transform: 'scaleX(-1)'
+    }
 }));
 
-export const SubVideoBox = styled('div')(({ theme }) => ({
+export const Position = styled('div')(({ theme }) => ({
     position:'absolute',
-    bottom: 5,
-    left: 4,
-    width: 190,
-    aspectRatio: 16 / 9,
-    background: '#3F4147',
-    boxSizing:'border-box'
+    bottom: 7,
+    right: 7,
 }));
+export const SubVideoBox = styled(Position)(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    position:'absolute',
+    width: 176,
+    aspectRatio: 16 / 9,
+    background: '#D0D0D0',
+    boxSizing:'border-box',
+    '& img':{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+    }
+}));
+
+export const SubVideoScreenShareBox = styled(SubVideoBox)(({ theme }) => ({
+    bottom: 7,
+    left: 7,
+    right: 'unset'
+}));
+
+export const TextShareBox = styled(Position)(({ theme }) => ({
+    bottom: 'unset',
+    top: 7,
+    left: 7,
+    right: 'unset',
+    '& p':{
+        fontFamily:'Roboto !important',
+        fontSize: '1.438rem',
+        color: '#42FF00',
+        fontWeight: 800,
+        lineHeight:1,
+        transform: 'scaleX(-1)'
+    }
+}));
+
+export const ImageShareBox = styled(Position)(({ theme }) => ({
+    bottom: 'unset',
+    top: 12,
+    '& img':{
+        transform: 'scaleX(-1)'
+    }
+}));
+
+export const SceneIconUser = styled('div')(({ theme }) => ({
+    width: 50,
+    height: 50,
+    background: '#fff',
+    border: '1px solid #dadada',
+    borderRadius: '50%',
+    display:'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}))
 
 export const BoxStyle = styled('div')(({ theme }) => ({
     width: 585,

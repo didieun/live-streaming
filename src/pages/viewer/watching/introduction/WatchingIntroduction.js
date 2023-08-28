@@ -6,15 +6,36 @@ import {
     Flex,
     BoxStyle,
     TextStyle,
-    ShowMoreButton
+    ShowMoreButton,
+    TagBox, TagBoxIn, TitleText, MarginBottom
 } from "./styles/WatchingIntroductionStyle";
 import TestProfileImage from "../../../common/images/TestProfileImage.jpeg";
 import { ReactComponent as ProfileUserIcon } from "../../../common/images/ProfileUserIcon.svg";
+import {Typography} from "@mui/material";
 
 function WatchingIntroduction({open}) {
+    const tagList =
+        [
+            {tag: 'tag1'},
+            {tag: 'tag2'},
+            {tag: 'tag3'},
+        ]
 
     return (
         <Container open={open}>
+            <MarginBottom>
+                <TagBox>
+                    {tagList.map((tag, i) => (
+                        <TagBoxIn key={i}>
+                            <Typography>#{tag.tag}</Typography>
+                        </TagBoxIn>
+                    ))}
+                </TagBox>
+                <TitleText>
+                    OF SOLO VS SQUAD | BGMI UBG MOBILE LIVEOF SOLO VS SQUAD | BGMI UBG MOBILE LIVEOF SOLO VS SQUAD | BGMI UBG MOBILE LIVEOF SOLO VS SQUAD | BGMI
+                </TitleText>
+            </MarginBottom>
+
             <Flex>
                 <AvatarBox>
                     {/*<img src={TestProfileImage} alt='image'/>*/}

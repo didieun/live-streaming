@@ -7,9 +7,10 @@ import {
     TitleText,
 } from "./styles/ViewerCommonDialogStyle";
 import {ReactComponent as SettingDialogCloseIcon} from "../../common/images/SettingDialogCloseIcon.svg";
+import {DialogArrowTooltipStyle} from "../watching/styles/WatchingStyle";
 
 function ViewerCommonDialog(props) {
-    const { onClose, open, title, children, submitText, onClick, actionBtn = true } = props;
+    const { onClose, open, title, children, submitText, onClick, cancelText, actionBtn = true, cancelBtn = true, tooltipOpen = false, tooltipChildren, tooltipTop, tooltipBottom, tooltipLeft, tooltipRight, triangle, tooltipPlacement, tooltipClose } = props;
 
     return (
         <DialogBox open={open}>
@@ -28,12 +29,40 @@ function ViewerCommonDialog(props) {
 
             {actionBtn &&
                 <ActionBox>
-                    <ButtonStyle onClick={onClose} disableRipple>
-                        Cancel
-                    </ButtonStyle>
-                    <ControlButton onClick={onClick} disableRipple>
-                        {submitText}
-                    </ControlButton>
+                    {cancelBtn &&
+                        <ButtonStyle onClick={onClose} disableRipple>
+                            {cancelText ?
+                                cancelText
+                                :
+                                'Cancel'
+                            }
+                        </ButtonStyle>
+                    }
+                    <DialogArrowTooltipStyle
+                        open={tooltipOpen ? true: false}
+                        title={
+                            <div>
+                                {tooltipChildren}
+                                <ButtonIcon onClick={tooltipClose} disableRipple>
+                                    <SettingDialogCloseIcon style={{width: 16, height: 16}}/>
+                                </ButtonIcon>
+                            </div>
+                        }
+                        placement={tooltipPlacement}
+                        top={tooltipTop}
+                        bottom={tooltipBottom}
+                        left={tooltipLeft}
+                        right={tooltipRight}
+                        triangle={triangle}
+                    >
+                        <ControlButton onClick={onClick} disableRipple>
+                            {submitText ?
+                                submitText
+                                :
+                                'OK'
+                            }
+                        </ControlButton>
+                    </DialogArrowTooltipStyle>
                 </ActionBox>
             }
         </DialogBox>

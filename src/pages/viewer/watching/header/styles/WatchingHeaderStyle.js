@@ -1,10 +1,10 @@
 import {styled} from "@mui/material/styles";
 import {Box, Button, IconButton, Typography} from "@mui/material";
-import {headerHeight} from "../../Watching";
+import {watchingHeaderHeight} from "../../Watching";
 
 export const Container = styled('div')(({ theme }) => ({
     width: '100%',
-    height: headerHeight,
+    height: watchingHeaderHeight,
     background:'#2A2A2A',
     borderBottom: '1px solid #6f6f6f',
     boxSizing:'border-box',
@@ -118,6 +118,37 @@ export const ButtonIcon = styled(IconButton)(({ theme }) => ({
     },
 }));
 
+export const IconMargin = styled(ButtonIcon)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        marginRight: 24
+    },
+}));
+
+export const bellSelect = (theme) => ({
+    '& path':{
+        stroke: '#3A974C',
+    }
+});
+
+export const bell = (theme) => ({
+    '& path':{
+        stroke: '#848589',
+    }
+});
+
+export const BellButtonIcon = styled(ButtonIcon, { shouldForwardProp: (prop) => prop !== 'select' })(
+    ({ theme, select }) => ({
+        ...(select && {
+            ...bellSelect(theme),
+            '&.MuiButtonBase-root': bellSelect(theme),
+        }),
+        ...(!select && {
+            ...bell(theme),
+            '&.MuiButtonBase-root': bell(theme),
+        }),
+    }),
+);
+
 export const ArrowButtonIcon = styled(ButtonIcon)(({ theme }) => ({
     "&.MuiButtonBase-root": {
         '& svg':{
@@ -160,5 +191,27 @@ export const ProfileButton = styled(Button)(({ theme }) => ({
             width: 14,
             height: 14
         }
+    },
+}));
+
+export const LogInButton = styled(Button)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        padding: '10px 16px',
+        height: 36,
+        minWidth: 10,
+        fontSize: "0.813rem",
+        fontWeight: 700,
+        textTransform: "none",
+        boxSizing: 'border-box',
+        borderRadius: 8,
+        lineHeight: 0,
+        background:'#2E8C6A',
+        border: '1px solid #2E8C6A',
+        color:'#fff',
+        marginLeft: 24,
+        "&:hover": {
+            background: "rgba(46, 140, 106, 0.8)",
+            border: '1px solid rgba(46, 140, 106, 0.8)',
+        },
     },
 }));

@@ -1,6 +1,6 @@
 import {styled} from "@mui/material/styles";
-import {Box, Button, IconButton, Popover, TextareaAutosize, Typography} from "@mui/material";
-import {asideWidth, smallAsideWidth} from "../../Watching";
+import {Box, Button, IconButton, Input, Popover, TextareaAutosize, Typography} from "@mui/material";
+import {watchingAsideWidth, smallAsideWidth} from "../../Watching";
 
 export const Container = styled('div')(({ theme }) => ({
     width: '100%',
@@ -60,7 +60,7 @@ export const ChatContents = styled('div')(({ theme }) => ({
 
 export const ChatBoxIn = styled('div')(({ theme }) => ({
     width: '100%',
-    height: 'calc(100% - 100px)',
+    height: 'calc(100% - 120px)',
     padding: '15px 12px',
     boxSizing: 'border-box',
     position:'relative',
@@ -84,29 +84,43 @@ export const TextStyle = styled(Typography)(({ theme }) => ({
     '&.MuiTypography-root':{
         fontSize: '0.875rem',
         color: '#fff',
+        fontWeight: 400,
+        marginBottom: 14
     }
+}));
+
+export const CameraBox = styled('div')(({ theme }) => ({
+    width: 18,
+    height: 18,
+    borderRadius: 4,
+    background: 'linear-gradient(180deg, #EF222E 0%, #ED0D5E 100%)',
+    border: '1px solid #AA0A13',
+    display:'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 6
 }));
 
 export const ChatBox = styled('div')(({ theme }) => ({
     width: '100%',
-    height: 100,
+    height: 120,
     background:'#3C3C3C',
-    padding: '10px 14px 10px 13px',
+    padding: '10px 8px 10px 8px',
     boxSizing: 'border-box',
     display:'flex',
-    alignItems:'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
 }));
 
 export const SendButton = styled(IconButton)(({ theme }) => ({
     "&.MuiButtonBase-root": {
-        width: 50,
-        height: 50,
+        width: 36,
+        height: 36,
         padding: 0,
         background:'rgba(35, 184, 130, 0.1)',
         display: 'flex',
         justifyContent:'center',
         alignItems: 'center',
-        marginLeft: 15,
         boxSizing: 'border-box',
         "&:hover": {
             background:'rgba(35, 184, 130, 0.1)',
@@ -117,18 +131,23 @@ export const SendButton = styled(IconButton)(({ theme }) => ({
         '&.Mui-disabled':{
             opacity: 0.3
         },
+        '& svg':{
+            width: 18,
+            height: 18
+        }
     },
 }));
 
 export const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
-    width: 'calc(100% - 65px)',
+    width: '100%',
     fontSize: '0.875rem',
     fontWeight: 400,
     color:'#fff',
-    padding: 0,
+    padding: '0 0 6.5px',
     border:0,
     background:'transparent',
     resize: 'none',
+    borderBottom: '1px solid rgba(35, 184, 130, 0.4)',
     '&::placeholder':{
         color:'#fff'
     },
@@ -137,13 +156,13 @@ export const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
     },
     overflowY: 'auto',
     '&::-webkit-scrollbar': {
-        width: '10px',
+        width: '4px',
     },
     '&::-webkit-scrollbar-thumb': {
         background: '#6f6f6f',
         borderRadius: '10px',
         backgroundClip: 'padding-box',
-        border: '3px solid transparent',
+        // border: '3px solid transparent',
     },
     '&::-webkit-scrollbar-track': {
         background: 'transparent',
@@ -154,11 +173,8 @@ export const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
 
 export const GiftButton = styled(ButtonIcon)(({ theme }) => ({
     "&.MuiButtonBase-root": {
-        width: 48,
-        height:48,
-        position: 'absolute',
-        bottom: 13,
-        right: 14,
+        width: 36,
+        height:36,
         background: '#fff',
         "&:hover": {
             background: "rgba(255, 255, 255, 0.8)",
@@ -167,8 +183,8 @@ export const GiftButton = styled(ButtonIcon)(({ theme }) => ({
             opacity: 0.3
         },
         '& svg':{
-            width: 24,
-            height: 24
+            width: 18,
+            height: 18
         }
     },
 }));
@@ -176,14 +192,14 @@ export const GiftButton = styled(ButtonIcon)(({ theme }) => ({
 export const PopoverBox = styled(Popover)(({ theme }) => ({
     '&.MuiPopover-root':{
         '& .MuiPaper-root':{
-            width: asideWidth,
+            width: watchingAsideWidth,
             background:'#2a2a2a',
             boxShadow: 'none',
             border: '1px solid #6f6f6f',
             borderRadius: 0,
             boxSizing: 'border-box',
             marginLeft: 16,
-            marginTop: 13,
+            marginTop: -75,
             '@media all and (max-width: 1400px)': {
                 width: smallAsideWidth,
             },
@@ -206,11 +222,17 @@ export const PopoverHeader = styled('div')(({ theme }) => ({
 }));
 
 export const PopoverContents = styled('div')(({ theme }) => ({
-    padding: '20px 20px 20px',
+    padding: '15px 14px 18px',
 }));
 
 export const JustifySpace = styled(AlignCenter)(({ theme }) => ({
     justifyContent: 'space-between'
+}));
+
+export const FlexWrap = styled('div')(({ theme }) => ({
+    display:'flex',
+    flexWrap: 'wrap',
+    // justifyContent: 'space-between'
 }));
 
 export const FlexColumn = styled('div')(({ theme }) => ({
@@ -219,43 +241,25 @@ export const FlexColumn = styled('div')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-export const PointBox = styled('div')(({ theme }) => ({
-    width: 70,
-    height: 70,
-    borderRadius: '50%',
-    background:'#848589',
-    marginBottom: 8
-}));
-
-export const PointText = styled(Typography)(({ theme }) => ({
+export const MyPointsTitle = styled(Typography)(({ theme }) => ({
     '&.MuiTypography-root':{
-        fontSize: '0.875rem',
-        color:'#fff',
-        fontWeight: 'bold',
+        marginTop: 11,
+        fontSize: '0.813rem',
+        color: 'rgba(255, 255, 255, 0.6)',
+        fontWeight: 600,
+        lineHeight: 1
     }
 }));
 
-export const JustifyRight = styled('div')(({ theme }) => ({
-    display:'flex',
-    justifyContent: 'flex-end',
-    marginTop: 10,
-    marginBottom: 15
-}));
-
-export const MyPointsBox = styled('div')(({ theme }) => ({
-    height: 30,
-    display:'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '0 13px',
-    borderRadius: 99,
-    background: '#F1D22F',
-    '& p':{
-        fontSize: '0.875rem',
-        color: '#18181d',
-        fontWeight: 400,
+export const MyPointsMoney = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '1.125rem',
+        color: 'rgba(255, 255, 255, 0.6)',
+        fontWeight: 700,
+        lineHeight: 1,
+        marginBottom: 8,
         '& span':{
-            fontWeight: 700
+            color: '#f1d22f'
         }
     }
 }));
@@ -263,8 +267,8 @@ export const MyPointsBox = styled('div')(({ theme }) => ({
 export const ButtonStyle = styled(Button)(({ theme }) => ({
     "&.MuiButtonBase-root": {
         width: '100%',
-        height: 36,
-        borderRadius: 5,
+        height: 45,
+        borderRadius: 99,
         background:'#23B882',
         padding: 0,
         "&:hover": {
@@ -274,7 +278,7 @@ export const ButtonStyle = styled(Button)(({ theme }) => ({
             opacity: 0.3
         },
         '& p':{
-            fontSize: '0.875rem',
+            fontSize: '1.063rem',
             color: '#fff',
             fontWeight: 400,
             textTransform: 'none',
@@ -287,6 +291,7 @@ export const ButtonStyle = styled(Button)(({ theme }) => ({
 
 export const Chat = styled('div')(({ theme }) => ({
     display:'flex',
+    alignItems: 'flex-start',
     marginBottom: 6
 }));
 
@@ -336,5 +341,72 @@ export const ChatText = styled(Typography)(({ theme }) => ({
         fontSize: '0.875rem',
         color: '#fff',
         fontWeight: 500
+    }
+}));
+
+export const CoinButton = styled('div')(({ theme }) => ({
+    width: 86,
+    padding: '4px 0 16px',
+    boxSizing: 'border-box',
+    display:'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    cursor:'pointer',
+}));
+
+export const CountBoxIn = styled('div')(({ theme }) => ({
+    width: 76,
+    background: '#3C3C3C',
+    height: 25,
+    borderRadius: 75,
+    border: '1px solid #6f6f6f',
+    boxSizing: 'border-box',
+    padding: '3px 5px',
+    display:'inline-flex',
+    alignItems: 'center',
+    '& path':{
+        stroke: '#fff'
+    },
+    '& .Mui-disabled':{
+        '& path':{
+            opacity: 0.3
+        }
+    },
+}));
+
+export const InputBox = styled(Input)(({ theme }) => ({
+    '&.MuiInputBase-root':{
+        width: 30,
+        margin: '0 5px',
+        fontSize: '1rem',
+        fontWeight: 400,
+        color: '#fff',
+        '& input':{
+            textAlign: 'center'
+        },
+        '&:after, &:before':{
+            borderBottom: 0
+        }
+    },
+    '&.MuiInputBase-root:hover:not(.Mui-disabled, .Mui-error):before':{
+        borderBottom: 0
+    },
+}));
+
+export const PointsBoxText = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '0.813rem',
+        color: '#fff',
+        opacity:0.6,
+        fontWeight: 400,
+        marginBottom: 6
+    }
+}));
+
+export const PopoverMoneyText = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '1rem',
+        color: '#fff',
+        fontWeight: 700,
     }
 }));

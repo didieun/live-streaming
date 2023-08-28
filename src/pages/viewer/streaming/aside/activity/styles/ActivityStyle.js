@@ -1,5 +1,5 @@
 import {styled} from "@mui/material/styles";
-import {Box, IconButton, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 
 export const Container = styled('div')(({ theme }) => ({
     width: '100%',
@@ -84,13 +84,4 @@ export const TextStyle = styled('div')(({ theme }) => ({
     '& svg':{
         marginLeft: 6
     }
-}));
-
-export const ButtonIcon = styled(IconButton)(({ theme }) => ({
-    "&.MuiButtonBase-root": {
-        padding: '0 !important',
-        "&:hover": {
-            background: "transparent",
-        },
-    },
 }));

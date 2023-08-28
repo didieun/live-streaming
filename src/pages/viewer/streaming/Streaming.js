@@ -1,88 +1,96 @@
 import React from 'react';
-import {Aside, Container, Contents, Section} from "./styles/StreamingStyle";
+import {Aside, Container, Flex, Nav, Section} from "./styles/StreamingStyle";
 import StreamingHeader from "./header/StreamingHeader";
 import StreamingFooter from "./footer/StreamingFooter";
 import StreamingContents from "./video/StreamingContents";
 import Activity from "./aside/activity/Activity";
 import Chat from "./aside/chat/Chat";
-import SettingDialog from "../dialog/SettingDialog";
 import ViewerCommonDialog from "../dialog/ViewerCommonDialog";
-import ReadyToGoLive from "../dialog/ReadyToGoLive";
-import JoinMe from "../dialog/JoinMe";
+import Sources from "./nav/sources/Sources";
+import Scenes from "./nav/scenes/Scenes";
+import StreamingNotifications from "./notifications/StreamingNotifications";
+import StreamingNotificationsDialog from "./notifications/dialog/StreamingNotificationsDialog";
+import StreamingInviteToStreamDialog from "./notifications/dialog/StreamingInviteToStreamDialog";
 
 export const headerHeight = 80;
-export const footerHeight = 90;
-export const asideWidth = 472;
-export const smallHeaderHeight = 54;
-export const smallFooterHeight = 63;
-export const smallAsideWidth = 380;
+export const footerHeight = 212;
+export const asideWidth = 316;
+export const navWidth = 153;
 
 function Streaming(props) {
-    const [standby, setStandby] = React.useState(false);
-    const [settingDialogOpen, setSettingDialogOpen] = React.useState(false);
-    const [liveDialogOpen, setLiveDialogOpen] = React.useState(false);
-    const [joinMeDialog, setJoinMeDialog] = React.useState(false);
+    const [scenesEmpty, setScenesEmpty] = React.useState(false);
 
-    const handleClickSettingDialogOpen = () => {
-        setSettingDialogOpen(true);
+    // 공지
+    const [notificationsOpen, setNotificationsOpen] = React.useState(false);
+    const [noticeDialogOpen, setNoticeDialogOpen] = React.useState(false);
+    const [inviteToStreamDialogOpen, setInviteToStreamDialogOpen] = React.useState(false);
+
+    // 공지
+    const handleClickNotificationsOpen = () => {
+        setNotificationsOpen(!notificationsOpen);
     };
 
-    const handleClickLiveDialogOpen = () => {
-        setLiveDialogOpen(true);
+    const handleCloseNotifications = () => {
+        setNotificationsOpen(false);
     };
 
-    const handleClickJoinMeDialogOpen = () => {
-        setJoinMeDialog(true);
+    const handleClickNoticeDialog = (event) => {
+        event.stopPropagation();
+        setNoticeDialogOpen(true);
     };
 
-    const handleCloseDialog = (value) => {
-        setSettingDialogOpen(false);
-        setLiveDialogOpen(false);
-        setJoinMeDialog(false);
+    const handleClickInviteToStreamDialogOpen = () => {
+        setInviteToStreamDialogOpen(true);
+    };
+
+    //
+    const handleCloseDialog = () => {
+        setNoticeDialogOpen(false);
+        setInviteToStreamDialogOpen(false);
     };
 
     return (
         <Container>
-            <StreamingHeader standby={standby} handleClickJoinMeDialogOpen={handleClickJoinMeDialogOpen}/>
+            <StreamingHeader handleClickNotificationsOpen={handleClickNotificationsOpen} notificationsOpen={notificationsOpen}/>
 
-            {standby ?
-                <div>
-
-                </div>
-                :
-                <Contents>
-                    <Section>
+            <Flex>
+                <Section>
+                    <Flex>
+                        <Nav empty={scenesEmpty}>
+                            <Sources/>
+                            <Scenes/>
+                        </Nav>
                         <StreamingContents/>
-                        <StreamingFooter handleClickLiveDialogOpen={handleClickLiveDialogOpen}/>
-                    </Section>
-                    <Aside>
-                        <Activity/>
-                        <Chat/>
-                    </Aside>
-                </Contents>
-            }
+                    </Flex>
+                    <StreamingFooter empty={scenesEmpty}/>
+                </Section>
+                <Aside>
+                    <Activity/>
+                    <Chat/>
+                </Aside>
+                <StreamingNotifications
+                    notificationsOpen={notificationsOpen}
+                    handleClickInviteToStreamDialogOpen={handleClickInviteToStreamDialogOpen}
+                    handleCloseNotifications={handleCloseNotifications}
+                    handleClickNoticeDialog={handleClickNoticeDialog}
+                />
+            </Flex>
 
-            {/*  dialog  */}
-            <SettingDialog
-                open={settingDialogOpen}
-                onClose={handleCloseDialog}
-            />
-
+            {/* 공지 */}
             <ViewerCommonDialog
-                open={liveDialogOpen}
+                open={noticeDialogOpen}
+                title={'Notifications'}
                 onClose={handleCloseDialog}
-                title={'Ready to Go Live'}
-                submitText={'Go Live'}
-                children={<ReadyToGoLive/>}
-            />
-
-            <ViewerCommonDialog
-                open={joinMeDialog}
-                onClose={handleCloseDialog}
-                title={'Join Me'}
-                submitText={'Go Live'}
                 actionBtn={false}
-                children={<JoinMe/>}
+                children={<StreamingNotificationsDialog handleCloseDialog={handleCloseDialog}/>}
+            />
+
+            <ViewerCommonDialog
+                open={inviteToStreamDialogOpen}
+                title={'Invite to Stream'}
+                actionBtn={false}
+                onClose={handleCloseDialog}
+                children={<StreamingInviteToStreamDialog/>}
             />
 
         </Container>

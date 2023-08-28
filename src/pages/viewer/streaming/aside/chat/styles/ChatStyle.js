@@ -1,6 +1,5 @@
 import {styled} from "@mui/material/styles";
 import {Box, IconButton, TextareaAutosize, Typography} from "@mui/material";
-import {footerHeight} from "../../../Streaming";
 
 export const Container = styled('div')(({ theme }) => ({
     width: '100%',
@@ -37,7 +36,7 @@ export const TitleText = styled(Typography)(({ theme }) => ({
 
 export const ContentsBox = styled('div')(({ theme }) => ({
     width:'100%',
-    height:`calc(100% - 46px - ${footerHeight}px)`,
+    height:`calc(100% - 46px - 90px)`,
     padding: '14px 15px',
     boxSizing: 'border-box',
     overflowY: 'auto',
@@ -67,7 +66,7 @@ export const TextStyle = styled(Typography)(({ theme }) => ({
 
 export const ChatBox = styled('div')(({ theme }) => ({
     width: '100%',
-    height: footerHeight,
+    height: 90,
     background:'#3C3C3C',
     padding: '11px 14px 11px 13px',
     boxSizing: 'border-box',

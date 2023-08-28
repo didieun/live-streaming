@@ -1,169 +1,106 @@
 import React from 'react';
 import {
-    AlignCenter,
+    AlignCenter, AlignStart,
     ButtonIcon,
-    Container,
-    PositionBox,
-    PositionButton,
-    SubVideoBox,
-    SubVideoBoxIn,
-    SubVideoIconButton,
-    SubVideoIconButtonShow,
+    Container, ContainerIn, JustifySpace, MarginRight50, TextBoldStyle, TextStyle,
     TitleText,
-    VideoBox,
-    PopoverBox,
-    PopoverButton
+    VideoBox, SubVideoBox, SceneIconUser, SubVideoScreenShareBox, TextShareBox, ImageShareBox
 } from "./styles/StreamingContentsStyle";
 import {ReactComponent as StreamingEditIcon} from "../../../common/images/StreamingEditIcon.svg";
 import {ReactComponent as StreamingEditArrowIcon} from "../../../common/images/StreamingEditArrowIcon.svg";
-import {ReactComponent as MinusIcon} from "../../../common/images/ViewerMinusIcon.svg";
-import {ReactComponent as PlusIcon} from "../../../common/images/ViewerPlusIcon.svg";
-import {ReactComponent as LayoutScaleIcon} from "../../../common/images/LayoutScaleIcon.svg";
-import {ReactComponent as PlusIcon2} from "../../../common/images/PlusIcon2.svg";
-import {ReactComponent as MinusIcon2} from "../../../common/images/MinusIcon2.svg";
+import {ReactComponent as SceneUserIcon} from "../../../common/images/SceneUserIcon.svg";
+import {ReactComponent as SceneChromecastIcon} from "../../../common/images/SceneChromecastIcon.svg";
+import {ReactComponent as SceneImageIcon} from "../../../common/images/SceneImageIcon.svg";
 import {TooltipStyle} from "../styles/StreamingStyle";
+import ViewerCommonDialog from "../../dialog/ViewerCommonDialog";
+import StreamInfo from "../../dialog/StreamInfo";
+import {Typography} from "@mui/material";
+import TestVideoImage from "../../../common/images/TestVideoImage.jpg";
+import MainScreenImage from "../../../common/images/MainScreenImage.png";
+import TestImage from "../../../common/images/TestImage.svg";
 
 function StreamingContents(props) {
-    const [hidden, setHidden] = React.useState(false);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [layout, setLayout] = React.useState('bottomLeft');
+    const [streamInfoDialog, setStreamInfoDialog] = React.useState(false);
+    const [edit, setEdit] = React.useState(false);
 
-    const handleClickSubVideoShow = () => {
-        setHidden(true);
+    const handleClickEdit = () => {
+        setEdit(true);
     };
 
-    const handleClickSubVideoHidden = () => {
-        setHidden(false);
+    const handleClickStreamInfoDialog = () => {
+        setStreamInfoDialog(true);
     };
 
-    const handleClickLayout = (event) => {
-        setAnchorEl(event.currentTarget);
+    const handleCloseDialog = () => {
+        setStreamInfoDialog(false);
+        setEdit(false);
     };
-
-    const handleCloseLayout = () => {
-        setAnchorEl(null);
-    };
-
-    const handleClickLayoutOn = (value) => {
-        setLayout(value);
-        setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
 
     return (
         <Container>
-            <AlignCenter>
-                <TooltipStyle
-                    title="Edit"
-                    placement="bottom"
-                >
-                    <ButtonIcon disableRipple>
-                        <StreamingEditIcon/>
-                    </ButtonIcon>
-                </TooltipStyle>
+            <ContainerIn>
+                <JustifySpace>
+                    <AlignCenter>
+                        <TooltipStyle
+                            title="Edit"
+                            placement="bottom"
+                        >
+                            <ButtonIcon onClick={handleClickStreamInfoDialog} disableRipple>
+                                <StreamingEditIcon/>
+                            </ButtonIcon>
+                        </TooltipStyle>
 
-                <TitleText>Title</TitleText>
-                <ButtonIcon disableRipple>
-                    <StreamingEditArrowIcon/>
-                </ButtonIcon>
-            </AlignCenter>
+                        <TitleText>Title</TitleText>
+                        <ButtonIcon onClick={handleClickStreamInfoDialog} disableRipple>
+                            <StreamingEditArrowIcon/>
+                        </ButtonIcon>
+                    </AlignCenter>
 
-            <VideoBox>
-                {hidden ?
-                    <SubVideoIconButtonShow onClick={handleClickSubVideoHidden} disableRipple>
-                        <PlusIcon/>
-                    </SubVideoIconButtonShow>
-                    :
+                    <AlignCenter>
+                        <MarginRight50>
+                            <TextStyle>Views</TextStyle>
+                            <TextBoldStyle>0</TextBoldStyle>
+                        </MarginRight50>
+
+                        <AlignStart>
+                            <TextStyle>Session</TextStyle>
+                            <TextBoldStyle>0:00:00</TextBoldStyle>
+                        </AlignStart>
+                    </AlignCenter>
+                </JustifySpace>
+
+
+                <VideoBox>
+                    <img src={MainScreenImage} alt='image'/>
+
                     <SubVideoBox>
-                        <SubVideoBoxIn>
-                            <SubVideoIconButton onClick={handleClickSubVideoShow} disableRipple>
-                                <MinusIcon/>
-                            </SubVideoIconButton>
-
-                            <PositionBox>
-                                <PositionButton aria-describedby={id} onClick={handleClickLayout} disableRipple>
-                                    {layout === 'topLeft' ?
-                                        <LayoutScaleIcon style={{transform: 'scaleY(-1)'}}/>
-                                        :
-                                        layout === 'topRight' ?
-                                            <LayoutScaleIcon style={{transform: 'scaleX(-1) scaleY(-1)'}}/>
-                                            :
-                                            layout === 'bottomLeft' ?
-                                                <LayoutScaleIcon/>
-                                                :
-                                                <LayoutScaleIcon style={{transform: 'scaleX(-1)'}}/>
-
-                                    }
-
-                                </PositionButton>
-                            </PositionBox>
-                        </SubVideoBoxIn>
+                        <SceneIconUser>
+                            <SceneUserIcon/>
+                        </SceneIconUser>
                     </SubVideoBox>
-                }
-            </VideoBox>
 
-            <PopoverBox
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleCloseLayout}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }}
-                transformOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-            >
-                <AlignCenter>
-                    <PopoverButton
-                        select={layout === 'topLeft'}
-                        onClick={() => handleClickLayoutOn('topLeft')}
-                        disableRipple
-                    >
-                        <LayoutScaleIcon style={{transform: 'scaleY(-1)'}}/>
-                    </PopoverButton>
+                    <SubVideoScreenShareBox>
+                        <SceneChromecastIcon style={{width: 60, height: 60}}/>
+                    </SubVideoScreenShareBox>
+                    <TextShareBox>
+                        <Typography>abc</Typography>
+                    </TextShareBox>
+                    <ImageShareBox>
+                        <img src={TestImage} alt='image'/>
+                    </ImageShareBox>
+                </VideoBox>
+            </ContainerIn>
 
-                    <PopoverButton
-                        select={layout === 'topRight'}
-                        onClick={() => handleClickLayoutOn('topRight')}
-                        disableRipple
-                    >
-                        <LayoutScaleIcon style={{transform: 'scaleX(-1) scaleY(-1)'}}/>
-                    </PopoverButton>
+            <ViewerCommonDialog
+                open={streamInfoDialog}
+                title={edit ?  'Edit Stream Info' : 'Stream Info'}
+                cancelBtn={edit ? false : true}
+                submitText={'Edit'}
+                onClose={handleCloseDialog}
+                onClick={edit ? handleCloseDialog : handleClickEdit}
+                children={<StreamInfo edit={edit}/>}
+            />
 
-                    <PopoverButton disableRipple>
-                        <PlusIcon2/>
-                    </PopoverButton>
-                </AlignCenter>
-
-                <AlignCenter>
-                    <PopoverButton
-                        select={layout === 'bottomLeft'}
-                        onClick={() => handleClickLayoutOn('bottomLeft')}
-                        disableRipple
-                    >
-                        <LayoutScaleIcon/>
-
-                    </PopoverButton>
-
-                    <PopoverButton
-                        select={layout === 'bottomRight'}
-                        onClick={() => handleClickLayoutOn('bottomRight')}
-                        disableRipple
-                    >
-                        <LayoutScaleIcon style={{transform: 'scaleX(-1)'}}/>
-                    </PopoverButton>
-
-                    <PopoverButton disableRipple>
-                        <MinusIcon2/>
-                    </PopoverButton>
-                </AlignCenter>
-
-            </PopoverBox>
         </Container>
     );
 }

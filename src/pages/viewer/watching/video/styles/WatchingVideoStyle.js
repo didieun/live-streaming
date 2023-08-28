@@ -1,12 +1,31 @@
 import {styled} from "@mui/material/styles";
-import {IconButton, Slider, Typography} from "@mui/material";
+import {Box, IconButton, Slider, Typography} from "@mui/material";
+import {smallAsideWidth, watchingAsideWidth} from "../../Watching";
 
-export const Container = styled('div')(({ theme }) => ({
+export const fullScreenBox = (theme) => ({
+    width: '100%',
+    padding: '0',
+    boxSizing: 'border-box',
+    background: '#0d0d0d',
+});
+
+export const exitFullScreenBox = (theme) => ({
     width: '100%',
     padding: '12px 12px 0',
     boxSizing: 'border-box',
     background: '#0d0d0d',
-}));
+});
+
+export const Container = styled('div', { shouldForwardProp: (prop) => prop !== 'fullScreen' })(
+    ({ theme, fullScreen }) => ({
+        ...(fullScreen && {
+            ...fullScreenBox(theme),
+        }),
+        ...(!fullScreen && {
+            ...exitFullScreenBox(theme),
+        }),
+    }),
+);
 
 export const VideoBox = styled('div')(({ theme }) => ({
     width: '100%',
@@ -15,10 +34,26 @@ export const VideoBox = styled('div')(({ theme }) => ({
     position: 'relative'
 }));
 
-export const VideoBoxIn = styled('div')(({ theme }) => ({
-    width: '100%',
-    height: '100%',
+export const VideoBoxTop = styled('div')(({ theme }) => ({
     position: 'absolute',
+    top:0,
+    left: 0,
+    width: '100%',
+    height: 90,
+    background: 'linear-gradient(360deg, rgba(0, 0, 0, 0.00) 0%, #000 100%)'
+}));
+
+export const ChatCloseBox = styled('div')(({ theme }) => ({
+    position: 'absolute',
+    top: 5,
+    right: 6,
+    width: 28,
+    height: 28,
+    borderRadius: 8,
+    background: 'rgba(24, 24, 29, 0.4)',
+    display:'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
 }));
 
 export const SubVideoBox = styled('div')(({ theme }) => ({
@@ -62,9 +97,11 @@ export const ButtonIcon = styled(IconButton)(({ theme }) => ({
 
 export const TimeText = styled(Typography)(({ theme }) => ({
     '&.MuiTypography-root':{
-        fontSize: '0.875rem',
+        fontSize: '1.125rem',
         color: '#fff',
-        marginLeft: 14
+        fontWeight: 400,
+        marginLeft: 14,
+        marginRight: 14
     }
 }));
 
@@ -115,4 +152,148 @@ export const SoundSliderBox = styled(SliderBox)(({ theme }) => ({
     '&.MuiSlider-root':{
         color: '#fff',
     },
+}));
+
+export const FullScreenInfoBox = styled('div')(({ theme }) => ({
+    width: 'calc(100% - 230px)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    paddingTop: 13,
+    paddingLeft: 19,
+    boxSizing: 'border-box',
+    display: 'flex',
+    alignItems: 'center'
+}));
+
+export const AvatarBox = styled(Box)(({ theme }) => ({
+    width: 66,
+    height: 66,
+    borderRadius: "50%",
+    background: "#eeeeee",
+    marginRight: 14,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    border: "1px solid #848589",
+    boxSizing: "border-box",
+    overflow:'hidden',
+    '& img':{
+        width: '100%'
+    },
+    '& svg':{
+        width: 35,
+        height: 35
+    },
+    '@media all and (max-width: 1500px)': {
+        width: 50,
+        height: 50,
+        '& svg':{
+            width: 28,
+            height: 28
+        },
+    },
+}));
+
+export const TextBox = styled('div')(({ theme }) => ({
+    width: 'calc(100% - 66px - 14px)',
+    '@media all and (max-width: 1500px)': {
+        width: 'calc(100% - 50px - 14px)',
+    },
+}));
+
+export const AlignStart = styled('div')(({ theme }) => ({
+    display:'flex',
+    alignItems:'flex-start',
+    width: '100%',
+    marginBottom: 3,
+}));
+
+export const UserName = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root': {
+        fontSize: '1.375rem',
+        color: '#fff',
+        fontWeight: 700,
+        marginRight: 14,
+        lineHeight: 1,
+        '@media all and (max-width: 1500px)': {
+            fontSize: '1.25rem',
+        },
+    }
+}));
+
+export const TitleText = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root': {
+        fontSize: '1.125rem',
+        color: '#fff',
+        fontWeight: 700,
+        maxWidth: 'calc(100% - 100px)',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        '@media all and (max-width: 1500px)': {
+            fontSize: '1rem',
+        },
+    }
+}));
+
+export const LiveBox = styled('div')(({ theme }) => ({
+    width: 62,
+    height: 24,
+    borderRadius: 5,
+    background:'#ef222e',
+    display:'flex',
+    justifyContent:'center',
+    alignItems: 'center',
+    '& p':{
+        fontSize: '0.75rem',
+        color: '#fff',
+        fontWeight: 'bold',
+        marginLeft: 3
+    },
+    '& svg':{
+        width: 19,
+        height: 19
+    },
+    '@media all and (max-width: 1500px)': {
+        width: 50,
+        height: 20,
+        borderRadius: 3,
+        '& p':{
+            fontSize: '0.625rem',
+        },
+        '& svg':{
+            width: 15,
+            height: 15
+        },
+    },
+}));
+
+
+export const IconColorSize = styled('div')(({ theme }) => ({
+    width: 20,
+    height: 20,
+    marginRight: 6,
+    '& svg':{
+        width: 20,
+        height: 20,
+        '& path':{
+            stroke: '#fff'
+        }
+    },
+}));
+
+export const ViewersText = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '1.125rem',
+        color:'#fff',
+        fontWeight: 400,
+        '& span':{
+            color: '#23b882',
+            fontWeight: 700
+        },
+        '@media all and (max-width: 1500px)': {
+            fontSize: '1rem',
+        },
+    }
 }));

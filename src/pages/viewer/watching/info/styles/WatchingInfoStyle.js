@@ -1,46 +1,22 @@
 import {styled} from "@mui/material/styles";
-import {Button, Typography} from "@mui/material";
+import {Button, IconButton, Input, Typography} from "@mui/material";
 
 export const Container = styled('div')(({ theme }) => ({
     borderBottom: '1px solid rgba(255, 255, 255, 0.5)',
     margin: '0 12px 0',
-    paddingTop: 31,
-    paddingBottom: 23,
+    paddingTop: 17,
+    paddingBottom: 12,
     '@media all and (max-width: 1500px)': {
-        paddingTop: 20,
-        paddingBottom: 10
+        paddingTop: 12,
+        paddingBottom: 8
     },
 }));
 
 export const ContainerIn = styled('div')(({ theme }) => ({
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between'
-}));
-
-export const LeftBox = styled('div')(({ theme }) => ({
-    width: 'calc(100% - 250px - 20px)',
-    marginRight: 20,
-    '@media all and (max-width: 1500px)': {
-        width: 'calc(100% - 180px - 20px)',
-    },
-}));
-
-export const TextStyle = styled(Typography)(({ theme }) => ({
-    '&.MuiTypography-root':{
-        fontSize: '1.125rem',
-        color: '#fff',
-        fontWeight: 700,
-        lineHeight: '24px',
-        '@media all and (max-width: 1500px)': {
-            fontSize: '1rem',
-        },
-    }
-}));
-
-export const AlignStart = styled('div')(({ theme }) => ({
-    display:'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'space-between',
+    alignItems:'center'
 }));
 
 export const AlignCenter = styled('div')(({ theme }) => ({
@@ -48,21 +24,8 @@ export const AlignCenter = styled('div')(({ theme }) => ({
     alignItems: 'center'
 }));
 
-export const TagBox = styled(AlignCenter)(({ theme }) => ({
-    marginBottom: 14,
-    '@media all and (max-width: 1500px)': {
-        marginBottom: 8,
-    },
-}));
-
-export const JustifyColumn = styled('div')(({ theme }) => ({
-    display:'flex',
-    flexDirection:'column',
-    alignItems: 'center'
-}));
-
-export const MarginLeft = styled(JustifyColumn)(({ theme }) => ({
-    marginLeft: 6
+export const AlignCenterMarginTop = styled(AlignCenter)(({ theme }) => ({
+    marginTop: 8
 }));
 
 export const TimeText = styled(Typography)(({ theme }) => ({
@@ -70,7 +33,7 @@ export const TimeText = styled(Typography)(({ theme }) => ({
         fontSize: '1.125rem',
         color: '#fff',
         fontWeight: 400,
-        marginBottom: 4,
+        marginLeft: 9,
         '@media all and (max-width: 1500px)': {
             fontSize: '1rem',
         },
@@ -114,7 +77,7 @@ export const DotStyle = styled('div')(({ theme }) => ({
     height: 5,
     background: '#fff',
     borderRadius: '50%',
-    marginRight: 7,
+    margin: '0 6px',
     '@media all and (max-width: 1500px)': {
         width: 3,
         height: 3,
@@ -160,15 +123,18 @@ export const ShareButton = styled(Button)(({ theme }) => ({
             background: 'transparent'
         },
         '& p':{
-            fontSize: '1rem',
+            fontSize: '1.125rem',
             color: '#fff',
             fontWeight: 400,
             textTransform: 'none',
             marginLeft: 6
         },
+        '& path':{
+            stroke:'#848589',
+        },
         '@media all and (max-width: 1500px)': {
             '& p':{
-                fontSize: '0.875rem',
+                fontSize: '1rem',
             },
             '& svg':{
                 width:15,
@@ -178,28 +144,197 @@ export const ShareButton = styled(Button)(({ theme }) => ({
     }
 }));
 
-export const TagBoxIn = styled('div')(({ theme }) => ({
-    height: 28,
-    padding: '0 9px',
-    background: '#d2d2d2',
-    borderRadius: 90,
-    marginRight: 8,
-    display:'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    '& p':{
-        fontSize: '0.875rem',
-        color: 'rgba(24, 24, 29, 0.7)',
-        fontWeight: 500
-    },
-    '&:last-child':{
-        marginRight: 0
-    },
-    '@media all and (max-width: 1500px)': {
-        height: 23,
-        marginRight: 5,
-        '& p':{
-            fontSize: '0.75rem',
+export const CoinButton = styled(Button)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        width: 80,
+        height: 80,
+        borderRadius: 10,
+        boxSizing: 'border-box',
+        padding: 0,
+        background: 'transparent',
+        border: '1px solid transparent',
+        display:'flex',
+        justifyContent:'center',
+        alignItems: 'center',
+        boxShadow:'0px 8px 10px 0px rgba(0, 0, 0, 0.25) inset',
+        marginRight: 17,
+        '&:hover':{
+            background: '#3c3c3c',
+            border: '1px solid #6f6f6f',
         },
+        '@media all and (max-width: 1500px)': {
+            marginRight: 10,
+        },
+    }
+}));
+
+export const FlexColumn = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    '& img':{
+        width: 84,
+        height: 84
+    },
+}));
+
+export const FlexColumnStart = styled('div')(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+}));
+
+export const PopoverMoneyText = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '1.188rem',
+        color: '#fff',
+        fontWeight: 700,
+    }
+}));
+
+export const ButtonIcon = styled(IconButton)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        padding: 0,
+        "&:hover": {
+            background: "transparent",
+        },
+    },
+}));
+
+export const CountBox = styled(AlignCenter)(({ theme }) => ({
+    justifyContent:'center',
+    width: '100%',
+    margin: '12px 0 16px',
+    borderBottom: '1px solid #6F6F6F',
+    padding: '0 15px 16px'
+}));
+
+export const CountBoxIn = styled('div')(({ theme }) => ({
+    background: '#3C3C3C',
+    height: 30,
+    borderRadius: 85,
+    border: '1px solid #6f6f6f',
+    boxSizing: 'border-box',
+    padding: '3px 7px',
+    display:'inline-flex',
+    alignItems: 'center',
+    '& path':{
+        stroke: '#fff'
+    },
+    '& .Mui-disabled':{
+        '& path':{
+            opacity: 0.3
+        }
+    },
+}));
+
+export const InputBox = styled(Input)(({ theme }) => ({
+    '&.MuiInputBase-root':{
+        width: 30,
+        margin: '0 5px',
+        fontSize: '1.188rem',
+        fontWeight: 400,
+        color: '#fff',
+        '& input':{
+            textAlign: 'center'
+        },
+        '&:after, &:before':{
+            borderBottom: 0
+        }
+    },
+    '&.MuiInputBase-root:hover:not(.Mui-disabled, .Mui-error):before':{
+        borderBottom: 0
+    },
+}));
+
+export const PointsBoxText = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '0.875rem',
+        color: '#fff',
+        fontWeight: 400,
+        marginRight: 12
+    }
+}));
+
+export const ButtonStyle = styled(Button)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        minWidth: 150,
+        height: 34,
+        borderRadius: 99,
+        background:'#23B882',
+        padding: '0 16px',
+        "&:hover": {
+            background: "rgba(35, 184, 130, 0.8)",
+        },
+        '&.Mui-disabled':{
+            opacity: 0.3
+        },
+        '& p':{
+            fontSize: '0.875rem',
+            color: '#fff',
+            fontWeight: 400,
+            textTransform: 'none',
+            '& span':{
+                fontWeight: 700
+            }
+        }
+    },
+}));
+
+export const LineStyle = styled('div')(({ theme }) => ({
+    width: 1,
+    height: 42,
+    background: 'rgba(255, 255, 255, 0.7)',
+    marginRight: 24
+}));
+
+export const PointsButton = styled(Button)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        borderRadius: 0,
+        background:'transparent',
+        padding: '0',
+        "&:hover": {
+            background: "transparent",
+        },
+        '&.Mui-disabled':{
+            opacity: 0.3
+        },
+    },
+}));
+
+export const Points = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '0.75rem',
+        color: 'rgba(255, 255, 255, 0.6)',
+        fontWeight: 400,
+        lineHeight: 1.2,
+        marginLeft: 4,
+        textTransform: 'none',
+        textAlign: 'left',
+        '& span':{
+            fontSize: '1rem',
+            fontWeight: 700
+        }
+    }
+}));
+
+export const BuyPointsButton = styled(Button)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        borderRadius: 0,
+        background:'transparent',
+        padding: '0',
+        "&:hover": {
+            background: "transparent",
+        },
+        '&.Mui-disabled':{
+            opacity: 0.3
+        },
+        '& p':{
+            fontSize: '0.875rem',
+            color: '#fff',
+            fontWeight: 400,
+            textTransform: 'none',
+            marginRight: 4
+        }
     },
 }));
