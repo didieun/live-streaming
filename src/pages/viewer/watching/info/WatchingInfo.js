@@ -23,7 +23,7 @@ import {
     Points,
     BuyPointsButton,
     PointsButton,
-    FlexColumnStart
+    FlexColumnStart, FavoriteButton, ButtonLineStyle
 } from "./styles/WatchingInfoStyle";
 import {ReactComponent as LiveIcon} from "../../../common/images/LiveIcon.svg";
 import {ReactComponent as ViewersUserIcon} from "../../../common/images/ViewersUserIcon.svg";
@@ -32,6 +32,8 @@ import {ReactComponent as PlusIcon} from "../../../common/images/PlusIcon.svg";
 import {ReactComponent as ShareIcon} from "../../../common/images/ShareIcon.svg";
 import {ReactComponent as CoinHandIcon} from "../../../common/images/CoinHandIcon.svg";
 import {ReactComponent as BuyPointsArrow} from "../../../common/images/BuyPointsArrow.svg";
+import {ReactComponent as FillHeartIcon} from "../../../common/images/FillHeartIcon.svg";
+import {ReactComponent as HeartIcon} from "../../../common/images/HeartIcon.svg";
 import Coin10 from "../../../common/images/Coin10.png";
 import Coin30 from "../../../common/images/Coin30.png";
 import Coin50 from "../../../common/images/Coin50.png";
@@ -47,11 +49,10 @@ import {ArrowTooltipStyle} from "../styles/WatchingStyle";
 import WatchingShare from "../../dialog/WatchingShare";
 import ViewerCommonDialog from "../../dialog/ViewerCommonDialog";
 import ViewerAlertDialog from "../../dialog/ViewerAlertDialog";
-import BuyPoints from "../../../home/studio/earnPurchase/points/dialog/BuyPoints";
-import TooltipBottomArrowBlue from "../../../common/images/TooltipBottomArrowBlue.svg";
-import WatchingBuyPoints from "../../dialog/WatchingBuyPoints";
 
 function WatchingInfo(props) {
+    const {handleClickBuyPointsDialog} = props;
+    const [favorite, setFavorite] = React.useState(false);
     const [count10, setCount10] = React.useState(0);
     const [count30, setCount30] = React.useState(0);
     const [count50, setCount50] = React.useState(0);
@@ -60,7 +61,6 @@ function WatchingInfo(props) {
 
     const [shareDialog, setShareDialog] = React.useState(false);
     const [alertDialog, setAlertDialog] = React.useState(false);
-    const [buyPointsDialog, setBuyPointsDialog] = React.useState(false);
 
     const handleClickShareDialog = () => {
         setShareDialog(true)
@@ -70,14 +70,9 @@ function WatchingInfo(props) {
         setAlertDialog(true)
     };
 
-    const handleClickBuyPointsDialog = () => {
-        setBuyPointsDialog(true)
-    };
-
     const handleCloseDialog = () => {
         setShareDialog(false)
         setAlertDialog(false)
-        setBuyPointsDialog(false)
     };
 
     const handleClickPlus10 = () => {
@@ -118,6 +113,10 @@ function WatchingInfo(props) {
 
     const handleClickMinus500 = () => {
         setCount500(count500 - 1)
+    };
+
+    const handleClickFavorite = () => {
+        setFavorite(!favorite);
     };
 
     const coin10 = (
@@ -270,6 +269,17 @@ function WatchingInfo(props) {
                         </IconColorSize>
 
                         <ViewersText><span>5.5K</span> views</ViewersText>
+
+                        <FavoriteButton onClick={handleClickFavorite} disableRipple>
+                            {favorite ?
+                                <FillHeartIcon/>
+                                :
+                                <HeartIcon/>
+                            }
+                            <Typography>Favorite</Typography>
+                            <ButtonLineStyle/>
+                            <Typography><span>14.1M</span></Typography>
+                        </FavoriteButton>
                     </AlignCenterMarginTop>
                 </div>
 
@@ -331,7 +341,7 @@ function WatchingInfo(props) {
                             </Points>
                         </PointsButton>
 
-                        <BuyPointsButton disableRipple>
+                        <BuyPointsButton onClick={handleClickBuyPointsDialog} disableRipple>
                             <Typography>Buy Points</Typography>
                             <BuyPointsArrow/>
                         </BuyPointsButton>
@@ -361,24 +371,6 @@ function WatchingInfo(props) {
                         onClick={handleClickBuyPointsDialog}
                     />
                 }
-            />
-
-            <ViewerCommonDialog
-                open={buyPointsDialog}
-                title={'Buy Points'}
-                submitText={'Request a Purchase'}
-                onClose={handleCloseDialog}
-                children={<WatchingBuyPoints/>}
-                tooltipOpen={true}
-                tooltipChildren={
-                    <Typography>
-                        Payments are valid for <span>7</span> days<br/> and will be automatically<br/> canceled if not paid.
-                    </Typography>
-                }
-                tooltipBottom={'-33px'}
-                tooltipRight={'10px'}
-                triangle={TooltipBottomArrowBlue}
-                tooltipPlacement={'top-end'}
             />
 
         </Container>

@@ -35,7 +35,7 @@ import {ReactComponent as CheckBrokenIcon} from "../../../../common/images/Check
 import {ReactComponent as TagCloseIcon} from "../../../../common/images/TagCloseIcon.svg";
 import {OutlinedInput, Typography} from "@mui/material";
 import TagsSearch from "./TagsSearch";
-import DialogChat from "../../chat/DialogChat";
+import DialogNotes from "../../chat/DialogNotes";
 
 function BuyANewChannel(props) {
     const [pricePlan, setPricePlan] = React.useState('');
@@ -138,7 +138,7 @@ function BuyANewChannel(props) {
             <MarginBottom30>
                 <Flex>
                     <TitleText>Notes</TitleText>
-                    <DialogChat
+                    <DialogNotes
                         width={450}
                         placeholder={'Leave a message'}
                     />

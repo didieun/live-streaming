@@ -112,6 +112,43 @@ export const ViewersText = styled(Typography)(({ theme }) => ({
     }
 }));
 
+export const FavoriteButton = styled(Button)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        minWidth: 180,
+        minHeight: 30,
+        borderRadius: 138,
+        border: '1px solid #6f6f6f',
+        background: '#3b3b3b',
+        display:'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 0,
+        marginLeft: 17,
+        '& p':{
+            fontSize: '1.125rem',
+            color: '#fff',
+            fontWeight: 400,
+            textTransform: 'none',
+            '& span':{
+                fontWeight: 700
+            }
+        },
+        '& svg':{
+            marginRight: 6,
+        },
+        "&:hover": {
+            background: "rgba(59, 59, 59, 0.8)",
+        },
+    },
+}));
+
+export const ButtonLineStyle = styled('div')(({ theme }) => ({
+    width: 1,
+    height: 16,
+    background: '#848589',
+    margin: '0 6px'
+}));
+
 export const ShareButton = styled(Button)(({ theme }) => ({
     "&.MuiButtonBase-root": {
         padding: 0,

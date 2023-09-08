@@ -429,9 +429,9 @@ export const PopoverBox = styled(Popover)(({ theme }) => ({
                             textOverflow:'ellipsis',
                             whiteSpace:'nowrap',
                             fontSize: '0.875rem',
-                            color: '#2E8C6A',
+                            color: '#18181d',
                             fontWeight: 400,
-                            textDecoration:'underline',
+                            marginLeft: 14
                         },
                         maxWidth: 140,
                     }
@@ -455,13 +455,6 @@ export const PopoverBox = styled(Popover)(({ theme }) => ({
     },
 }));
 
-export const ListItemNameText = styled(ListItemText)(({ theme }) => ({
-    '& span':{
-        color: '#18181d !important',
-        textDecoration: 'none !important',
-    },
-}));
-
 export const NoImageBox = styled('div')(({ theme }) => ({
     width: 69,
     height: 45,
@@ -471,7 +464,7 @@ export const NoImageBox = styled('div')(({ theme }) => ({
     flexDirection:'column',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: '0 14px',
+    margin: '0 0 0 14px',
     overflow: 'hidden',
     '& img':{
         width: '100%',

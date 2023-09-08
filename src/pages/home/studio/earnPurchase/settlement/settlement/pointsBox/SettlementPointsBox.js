@@ -176,6 +176,14 @@ function SettlementPointsBox(props) {
                                         }}
                                     >
                                         <List>
+                                            <ListItem>
+                                                <ListItemButton onClick={() => handleClickChannelsButton('All Channels')} disableRipple>
+                                                    <ListItemIcon>
+                                                        <RadioBox {...controlProps('All Channels')} icon={<UnRadioIcon />} checkedIcon={<RadioIcon />} disableRipple/>
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={'All Channels'} />
+                                                </ListItemButton>
+                                            </ListItem>
                                             {menuList.map((list, i) => {
                                                 const labelId = `checkbox-list-label-${i}`;
 
@@ -246,7 +254,7 @@ function SettlementPointsBox(props) {
                                                                         <img src={list.imageUrl} alt='image'/>
                                                                     </AvatarBox>
                                                                 }
-                                                                <ListItemNameText id={labelId} primary={list.name} />
+                                                                <ListItemText id={labelId} primary={list.name} />
                                                             </ListItemButton>
                                                         </ListItem>
                                                     );

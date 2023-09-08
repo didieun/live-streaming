@@ -11,7 +11,7 @@ import {Typography} from "@mui/material";
 import {ArrowTooltipStyle} from "../main/styles/MainStyle";
 import TooltipArrowBlue from "../../common/images/TooltipArrowBlue.svg";
 
-function ViewerCommonDialog(props) {
+function HomeCommonDialog(props) {
     const { onClose, open, title, children, submitText, onClick, cancelText, actionBtn = true, cancelBtn = true, tooltipOpen = false, tooltipChildren, tooltipTop, tooltipBottom, tooltipLeft, tooltipRight, triangle, tooltipPlacement, tooltipClose } = props;
 
     return (
@@ -72,4 +72,4 @@ function ViewerCommonDialog(props) {
     );
 }
 
-export default ViewerCommonDialog;
+export default HomeCommonDialog;

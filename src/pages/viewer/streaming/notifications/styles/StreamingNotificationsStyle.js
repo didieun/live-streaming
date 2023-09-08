@@ -221,7 +221,7 @@ export const EmptyTitle = styled(Typography)(({ theme }) => ({
     '&.MuiTypography-root':{
         fontSize: '0.875rem',
         fontWeight: 700,
-        color: '#18181d',
+        color: '#fff',
         margin: '14px 0'
     }
 }));
@@ -229,7 +229,7 @@ export const EmptyTitle = styled(Typography)(({ theme }) => ({
 export const EmptyText = styled(Typography)(({ theme }) => ({
     '&.MuiTypography-root':{
         fontSize: '0.75rem',
-        color: '#18181d',
+        color: '#fff',
         opacity: 0.7,
         textAlign: 'center'
     }

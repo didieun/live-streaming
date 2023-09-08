@@ -29,7 +29,7 @@ import {
     CountBoxIn,
     InputBox,
     PointsBoxText,
-    PopoverMoneyText, FlexWrap, MyPointsTitle, MyPointsMoney
+    PopoverMoneyText, FlexWrap, MyPointsTitle, MyPointsMoney, GiftButtonBoxIn, GiftText
 } from "./styles/WatchingChatStyle";
 import {ReactComponent as AsideCloseArrowIcon} from "../../../common/images/AsideCloseArrowIcon.svg";
 import {ReactComponent as ChatIcon} from "../../../common/images/ChatIcon.svg";
@@ -270,9 +270,13 @@ function WatchingChat(props) {
                     />
 
                     <JustifySpace>
-                        <GiftButton aria-describedby={id} onClick={handleClickGiftOpen} disableRipple>
-                            <GiftIcon/>
-                        </GiftButton>
+                        <GiftButtonBoxIn>
+                            <GiftText>+500</GiftText>
+                            <GiftButton aria-describedby={id} onClick={handleClickGiftOpen} disableRipple>
+                                <GiftIcon/>
+                            </GiftButton>
+                        </GiftButtonBoxIn>
+
                         <SendButton disableRipple>
                             <ChatSendIcon/>
                         </SendButton>

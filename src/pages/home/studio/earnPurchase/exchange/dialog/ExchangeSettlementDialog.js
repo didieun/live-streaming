@@ -8,7 +8,7 @@ import {
     PointsText,
 } from './styles/ExchangeSettlementDialogStyle'
 import {ReactComponent as CoinIcon2} from "../../../../../common/images/CoinIcon2.svg";
-import DialogChat from "../../../chat/DialogChat";
+import DialogNotes from "../../../chat/DialogNotes";
 
 function ExchangeSettlementDialog(props) {
 
@@ -27,7 +27,7 @@ function ExchangeSettlementDialog(props) {
 
             <Flex>
                 <TitleText>Notes</TitleText>
-                <DialogChat
+                <DialogNotes
                     width={450}
                     placeholder={'Leave a message'}
                 />

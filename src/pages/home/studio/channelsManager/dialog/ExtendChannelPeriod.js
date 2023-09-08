@@ -17,7 +17,7 @@ import {
 import {ReactComponent as CalendarIcon} from "../../../../common/images/CalendarIcon.svg";
 import {ReactComponent as RadioIcon} from "../../../../common/images/RadioIcon.svg";
 import {ReactComponent as UnRadioIcon} from "../../../../common/images/UnRadioIcon.svg";
-import DialogChat from "../../chat/DialogChat";
+import DialogNotes from "../../chat/DialogNotes";
 
 function ExtendChannelPeriod(props) {
     const [pricePlan, setPricePlan] = React.useState('');
@@ -110,7 +110,7 @@ function ExtendChannelPeriod(props) {
 
             <Flex>
                 <NotesTitle>Notes</NotesTitle>
-                <DialogChat
+                <DialogNotes
                     width={600}
                     placeholder={'Send a message'}
                 />

@@ -82,20 +82,21 @@ export const ButtonStyle = styled(Button)(({ theme }) => ({
         height: 43,
         padding: '0 20px',
         borderRadius: 5,
-        background: '#fff',
+        background: 'rgba(255, 255, 255, 0.1)',
         fontSize: '1rem',
-        color: 'rgba(24, 24, 29, 0.7)',
-        border: '1px solid #848589',
+        color: '#fff',
+        border: '1px solid #969696',
         fontWeight: 'bold',
         textTransform: "none",
         boxSizing: 'border-box',
         "&:hover": {
-            background: "rgba(255, 255, 255, 0.8)",
-            color: 'rgba(24, 24, 29, 0.8)',
-            border: '1px solid rgba(132, 133, 137, 0.8)'
+            background: 'rgba(255, 255, 255, 0.1)',
+            color: '#fff',
+            border: '1px solid #969696',
         },
         '&.Mui-disabled':{
-            background: '#969696'
+            background: '#969696',
+            color: '#18181d',
         },
     },
 }));

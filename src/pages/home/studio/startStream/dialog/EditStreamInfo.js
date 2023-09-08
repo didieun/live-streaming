@@ -21,6 +21,7 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 import {ReactComponent as UnRadioIcon} from "../../../../common/images/UnRadioIcon.svg";
 import {ReactComponent as RadioIcon} from "../../../../common/images/RadioIcon.svg";
 import {ReactComponent as PreviewImageIcon} from "../../../../common/images/PreviewImageIcon.svg";
+import {ReactComponent as StreamingErrorIcon} from "../../../../common/images/StreamingErrorIcon.svg";
 import TestVideoImage from "../../../../common/images/TestVideoImage.jpg";
 
 function EditStreamInfo(props) {
@@ -47,7 +48,10 @@ function EditStreamInfo(props) {
                     {/*    placeholder="This is the stream title."*/}
                     {/*/>*/}
                     {/*<JustifySpace>*/}
-                    {/*    <ErrorText>Please enter a title.</ErrorText>*/}
+                    {/*    <AlignCenter>*/}
+                    {/*        <StreamingErrorIcon/>*/}
+                    {/*        <ErrorText>Please enter a title.</ErrorText>*/}
+                    {/*    </AlignCenter>*/}
                     {/*    <NumberText>0 / 140</NumberText>*/}
                     {/*</JustifySpace>*/}
                 </div>
@@ -107,7 +111,8 @@ function EditStreamInfo(props) {
                 </FormControlBox>
             </AlignCenter>
             <SubText>
-                * Choose whether viewers need to log in to watch your stream.
+                * Choose whether viewers need to log in to watch your stream.<br/>
+                * When not logged in, viewers cannot chat and send gifts.
             </SubText>
 
             <FlexMarginTop>

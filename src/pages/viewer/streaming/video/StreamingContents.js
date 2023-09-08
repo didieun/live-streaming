@@ -4,18 +4,16 @@ import {
     ButtonIcon,
     Container, ContainerIn, JustifySpace, MarginRight50, TextBoldStyle, TextStyle,
     TitleText,
-    VideoBox, SubVideoBox, SceneIconUser, SubVideoScreenShareBox, TextShareBox, ImageShareBox
+    VideoBox, SceneIconUser, SubVideoScreenShareBox, TextShareBox, ImageShareBox, SubVideoVideoCaptureBox
 } from "./styles/StreamingContentsStyle";
 import {ReactComponent as StreamingEditIcon} from "../../../common/images/StreamingEditIcon.svg";
 import {ReactComponent as StreamingEditArrowIcon} from "../../../common/images/StreamingEditArrowIcon.svg";
 import {ReactComponent as SceneUserIcon} from "../../../common/images/SceneUserIcon.svg";
 import {ReactComponent as SceneChromecastIcon} from "../../../common/images/SceneChromecastIcon.svg";
-import {ReactComponent as SceneImageIcon} from "../../../common/images/SceneImageIcon.svg";
 import {TooltipStyle} from "../styles/StreamingStyle";
 import ViewerCommonDialog from "../../dialog/ViewerCommonDialog";
 import StreamInfo from "../../dialog/StreamInfo";
 import {Typography} from "@mui/material";
-import TestVideoImage from "../../../common/images/TestVideoImage.jpg";
 import MainScreenImage from "../../../common/images/MainScreenImage.png";
 import TestImage from "../../../common/images/TestImage.svg";
 
@@ -73,11 +71,11 @@ function StreamingContents(props) {
                 <VideoBox>
                     <img src={MainScreenImage} alt='image'/>
 
-                    <SubVideoBox>
+                    <SubVideoVideoCaptureBox>
                         <SceneIconUser>
                             <SceneUserIcon/>
                         </SceneIconUser>
-                    </SubVideoBox>
+                    </SubVideoVideoCaptureBox>
 
                     <SubVideoScreenShareBox>
                         <SceneChromecastIcon style={{width: 60, height: 60}}/>

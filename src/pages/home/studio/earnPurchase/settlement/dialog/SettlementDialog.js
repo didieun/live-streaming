@@ -10,7 +10,7 @@ import {
 } from './styles/SettlementDialogStyle'
 import {ReactComponent as CoinIcon2} from "../../../../../common/images/CoinIcon2.svg";
 import {ReactComponent as CalendarIcon} from "../../../../../common/images/CalendarIcon.svg";
-import DialogChat from "../../../chat/DialogChat";
+import DialogNotes from "../../../chat/DialogNotes";
 
 function SettlementDialog(props) {
 
@@ -57,7 +57,7 @@ function SettlementDialog(props) {
 
             <Flex>
                 <TitleText>Notes</TitleText>
-                <DialogChat
+                <DialogNotes
                     width={450}
                     placeholder={'Leave a message'}
                 />

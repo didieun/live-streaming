@@ -2,5 +2,5 @@
     <style>
         .close{stroke: #fff;}
     </style>
-<path class="close" d="M18.9557 4.44141L4.28906 19.1081M18.9557 19.1081L4.28906 4.44141" stroke="white" stroke-width="1.87556" stroke-linecap="round"/>
+<path class="close" d="M18.9557 4.44141L4.28906 19.1081M18.9557 19.1081L4.28906 4.44141" stroke="current" stroke-width="1.87556" stroke-linecap="round"/>
 </svg>

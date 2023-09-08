@@ -1,0 +1,8 @@
+<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .back-icon{stroke: #18181d;}
+    </style>
+    <g opacity="0.7">
+        <path class="back-icon" d="M8.62891 14.25L3.62891 9M3.62891 9L8.62891 3.75M3.62891 9L15.6289 9" stroke="#18181D" stroke-width="1.54101" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+</svg>

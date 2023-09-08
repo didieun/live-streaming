@@ -1,5 +1,5 @@
 import {styled} from "@mui/material/styles";
-import {Box, Button, IconButton, Typography} from "@mui/material";
+import {Box, Button, FormControl, IconButton, Typography} from "@mui/material";
 import {watchingHeaderHeight} from "../../Watching";
 
 export const Container = styled('div')(({ theme }) => ({
@@ -16,73 +16,32 @@ export const Container = styled('div')(({ theme }) => ({
     zIndex: 1000
 }));
 
+
+export const LogoText = styled(Typography)(({ theme }) => ({
+    '&.MuiTypography-root':{
+        fontSize: '1.5rem',
+        color: '#fff',
+        fontWeight: 700,
+    }
+}));
+
 export const AlignCenter = styled('div')(({ theme }) => ({
     display:'flex',
     alignItems: 'center'
 }));
 
-export const FlexColumn = styled('div')(({ theme }) => ({
-    display:'flex',
-    flexDirection:'column',
-    alignItems: 'center',
-    '& svg':{
-        width: 14,
-        height: 14
-    }
-}));
-
-export const ButtonStyle = styled(Button)(({ theme }) => ({
-    "&.MuiButtonBase-root": {
-        width: 96,
-        height: 26,
-        padding: 0,
-        background:'#fff',
-        borderRadius: 4,
-        fontSize: '0.813rem',
-        color: '#23b882',
-        fontWeight: 'bold',
-        textTransform:'none',
-        marginBottom: 4,
-        "&:hover": {
-            background: "rgba(255, 255, 255, 0.8)",
-        },
-        '&.Mui-disabled':{
-            opacity: 0.3
-        },
-    },
-}));
-
-export const ButtonStyleOn = styled(ButtonStyle)(({ theme }) => ({
-    "&.MuiButtonBase-root": {
-        background:'#23b882',
-        color: '#fff',
-        "&:hover": {
-            background: "rgba(35, 184, 130, 0.8)",
-        },
-    },
-}));
-
-export const TextStyle = styled(Typography)(({ theme }) => ({
-    '&.MuiTypography-root':{
-        fontSize: '0.813rem',
-        color: '#fff',
-        fontWeight: 500,
-        marginLeft: 3,
-        lineHeight: 1
-    }
-}));
-
 export const ChannelImageBox = styled('div')(({ theme }) => ({
-    width: 79,
-    height: 44,
+    width: 43,
+    height: 22,
     display:'flex',
     justifyContent:'center',
     alignItems: 'center',
     overflow: 'hidden',
     border: '1px solid rgba(0, 0, 0, 0.10)',
     boxSizing: 'border-box',
-    marginRight: 12,
+    marginRight: 15,
     background:'#848589',
+    cursor: 'pointer',
     '& img':{
         width: '100%'
     },
@@ -98,6 +57,7 @@ export const TitleText = styled(Typography)(({ theme }) => ({
         textOverflow:'ellipsis',
         whiteSpace:'nowrap',
         marginRight: 5,
+        cursor: 'pointer'
     }
 }));
 
@@ -118,9 +78,81 @@ export const ButtonIcon = styled(IconButton)(({ theme }) => ({
     },
 }));
 
+export const CloseButton = styled(IconButton)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        padding: 0,
+        "&:hover": {
+            background: "transparent",
+            opacity: 0.8
+        },
+        '&.Mui-disabled':{
+            opacity: 0.3
+        },
+    },
+}));
+
+export const SearchIconButton = styled(ButtonIcon)(({ theme }) => ({
+    "&.MuiButtonBase-root": {
+        '& svg':{
+            '& path':{
+                stroke: '#848589',
+            }
+        }
+    },
+}));
+
+export const SearchBox = styled(FormControl)(({ theme }) => ({
+    '&.MuiFormControl-root':{
+        width: 440,
+        marginRight: 8
+    },
+    '& .MuiInputBase-root':{
+        width: '100%',
+        height: 36,
+        background: '#3B3B3B',
+        borderRadius: 78,
+        display: "flex",
+        alignItems: "center",
+        boxSizing: "border-box",
+        '& input':{
+            padding: "0 0 0 10px",
+            fontSize: "1.125rem",
+            color: "#fff",
+            fontWeight: 'normal',
+            opacity: 1,
+            "&::placeholder": {
+                color: "#fff",
+                opacity: 0.7,
+                fontWeight: 'normal'
+            },
+        },
+        '&:hover':{
+            '& .MuiOutlinedInput-notchedOutline':{
+                border: "1px solid #6F6F6F",
+            },
+        },
+        '& .MuiOutlinedInput-notchedOutline':{
+            border: "1px solid #6F6F6F",
+        },
+        '&.Mui-focused':{
+            '& .MuiOutlinedInput-notchedOutline':{
+                border: "2px solid #23b882",
+            },
+        },
+        '& svg':{
+            width: 24,
+            height: 24,
+            '& path':{
+                stroke: '#fff',
+            }
+        }
+    }
+}));
+
 export const IconMargin = styled(ButtonIcon)(({ theme }) => ({
     "&.MuiButtonBase-root": {
-        marginRight: 24
+        marginRight: 24,
+        marginLeft: 24
     },
 }));
 
@@ -148,15 +180,6 @@ export const BellButtonIcon = styled(ButtonIcon, { shouldForwardProp: (prop) => 
         }),
     }),
 );
-
-export const ArrowButtonIcon = styled(ButtonIcon)(({ theme }) => ({
-    "&.MuiButtonBase-root": {
-        '& svg':{
-            width: 14,
-            height: 14
-        }
-    },
-}));
 
 export const AvatarBox = styled(Box)(({ theme }) => ({
     width: 40,

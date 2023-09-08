@@ -72,13 +72,14 @@ export const ButtonStyle = styled(Button)(({ theme }) => ({
         height: 43,
         padding: '0 50px',
         borderRadius: 5,
-        background: '#969696',
+        background: 'rgba(255, 255, 255, 0.1)',
         fontSize: '1rem',
         color: '#fff',
         fontWeight: 'bold',
         textTransform: "none",
+        border: '1px solid #969696',
         "&:hover": {
-            background: "rgba(150, 150, 150, 0.8)",
+            background: 'rgba(255, 255, 255, 0.1)',
         },
         '&.Mui-disabled':{
             opacity: 0.3

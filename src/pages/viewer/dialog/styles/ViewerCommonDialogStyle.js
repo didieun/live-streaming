@@ -29,6 +29,9 @@ export const DialogHeader = styled('div')(({ theme }) => ({
     borderBottom: '1px solid #6F6F6F',
     padding: '0 16px',
     boxSizing: 'border-box',
+    '& path':{
+        stroke:'#fff'
+    }
 }));
 
 export const ButtonIcon = styled(IconButton)(({ theme }) => ({

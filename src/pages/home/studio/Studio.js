@@ -198,7 +198,6 @@ function Studio(props) {
                 <Notifications
                     notificationsOpen={notificationsOpen}
                     handleClickInviteToStreamDialogOpen={handleClickInviteToStreamDialogOpen}
-                    handleClickNotificationsOpen={handleClickNotificationsOpen}
                     handleCloseNotifications={handleCloseNotifications}
                     handleClickNoticeDialog={handleClickNoticeDialog}
                 />

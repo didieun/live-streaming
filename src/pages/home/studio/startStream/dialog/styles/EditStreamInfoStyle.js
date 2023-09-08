@@ -33,6 +33,7 @@ export const ErrorText = styled(Typography)(({ theme }) => ({
         fontSize: '0.875rem',
         fontWeight: 400,
         color: '#EF222E',
+        marginLeft: 6
     }
 }));
 

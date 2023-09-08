@@ -27,11 +27,11 @@ import {
 import {ReactComponent as ChatSendIcon} from "../../../../../common/images/ChatSendIcon.svg";
 import {ReactComponent as InfoIcon} from "../../../../../common/images/InfoIcon.svg";
 import {ReactComponent as ProfileUserIcon} from "../../../../../common/images/ProfileUserIcon.svg";
-import {ReactComponent as Point10} from "../../../../../common/images/Point10.svg";
-import {ReactComponent as Point30} from "../../../../../common/images/Point30.svg";
-import {ReactComponent as Point50} from "../../../../../common/images/Point50.svg";
-import {ReactComponent as Point100} from "../../../../../common/images/Point100.svg";
-import {ReactComponent as Point500} from "../../../../../common/images/Point500.svg";
+import PopoverCoin10 from "../../../../../common/images/PopoverCoin10.png";
+import PopoverCoin30 from "../../../../../common/images/PopoverCoin30.png";
+import PopoverCoin50 from "../../../../../common/images/PopoverCoin50.png";
+import PopoverCoin100 from "../../../../../common/images/PopoverCoin100.png";
+import PopoverCoin500 from "../../../../../common/images/PopoverCoin500.png";
 import {ReactComponent as PlusIcon} from "../../../../../common/images/PlusIcon.svg";
 import {ReactComponent as MinusIcon} from "../../../../../common/images/MinusIcon.svg";
 import {ReactComponent as CoinIcon} from "../../../../../common/images/CoinIcon.svg";
@@ -41,7 +41,7 @@ import TestProfileImage from "../../../../../common/images/TestProfileImage.jpeg
 import {Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
 import TooltipArrowBlue from "../../../../../common/images/TooltipArrowBlue.svg";
 import {ArrowTooltipStyle} from "../../../../main/styles/MainStyle";
-import DialogChat from "../../../chat/DialogChat";
+import DialogNotes from "../../../chat/DialogNotes";
 
 const pointsInfoMessage = (
     <React.Fragment>
@@ -92,11 +92,11 @@ function BuyPoints(props) {
 
     const pointsList =
         [
-            {image: <Point10/>, point: '10', money: '7.9'},
-            {image: <Point30/>, point: '30', money: '22.95'},
-            {image: <Point50/>, point: '50', money: '38.25'},
-            {image: <Point100/>, point: '100', money: '76.50'},
-            {image: <Point500/>, point: '500', money: '382.00'},
+            {image: PopoverCoin10, point: '10', money: '7.9'},
+            {image: PopoverCoin30, point: '30', money: '22.95'},
+            {image: PopoverCoin50, point: '50', money: '38.25'},
+            {image: PopoverCoin100, point: '100', money: '76.50'},
+            {image: PopoverCoin500, point: '500', money: '382.00'},
         ]
 
     const handleClickPointsBtn = (value) => {
@@ -163,7 +163,7 @@ function BuyPoints(props) {
                     <PointsBox>
                         {pointsList.map((list, i) => (
                             <PointsBoxIn key={i} onClick={() => handleClickPointsBtn(list.point)} select={pointsBtn === list.point}>
-                                {list.image}
+                                <img src={list.image} alt={'coin image'}/>
                                 <PointsBoxTitle>{list.point} P</PointsBoxTitle>
                                 <PointsBoxMoney>$ {list.money}</PointsBoxMoney>
                                 <AlignCenter>
@@ -213,8 +213,8 @@ function BuyPoints(props) {
 
             <Flex>
                 <TitleText>Notes</TitleText>
-                <DialogChat
-                    width={450}
+                <DialogNotes
+                    width={475}
                     placeholder={'Leave a message'}
                 />
             </Flex>

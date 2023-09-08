@@ -124,6 +124,10 @@ export const SubVideoBox = styled(Position)(({ theme }) => ({
     }
 }));
 
+export const SubVideoVideoCaptureBox = styled(SubVideoBox)(({ theme }) => ({
+    border: '3px solid #23B882'
+}));
+
 export const SubVideoScreenShareBox = styled(SubVideoBox)(({ theme }) => ({
     bottom: 12,
     right: 15,

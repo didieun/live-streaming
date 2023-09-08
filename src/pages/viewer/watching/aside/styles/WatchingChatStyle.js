@@ -170,6 +170,36 @@ export const StyledTextarea = styled(TextareaAutosize)(({ theme }) => ({
     },
 }));
 
+export const GiftButtonBoxIn = styled('div')(({ theme }) => ({
+    position: 'relative',
+    display:'flex',
+    flexDirection:'column',
+}));
+
+export const GiftText = styled('div')(({ theme }) => ({
+    fontSize: '0.75rem',
+    color: '#23b882',
+    fontWeight: 700,
+    marginBottom: 5,
+    position: 'relative',
+    animation: 'fadeInUp 1.8s ease-in-out',
+    animationFillMode: 'forwards',
+    "@keyframes fadeInUp": {
+        "from": {
+            transform: 'translate3d(0, 120%, 0)',
+        },
+        "50%": {
+            opacity: 1,
+            transform: 'translateZ(0)',
+        },
+        "to": {
+            opacity: 0,
+        }
+    },
+    '&.MuiTypography-root':{
+
+    }
+}));
 
 export const GiftButton = styled(ButtonIcon)(({ theme }) => ({
     "&.MuiButtonBase-root": {
