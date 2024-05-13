@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Select, Box } from '@mui/material';
-import { ReactComponent as ArrowDownIcon } from '../../../assets/images/ArrowDownIcon.svg';
-import { Menu, SelectFormControlBox, StyledInput } from './styled/CommonStyle';
+import { StyledInput } from './styled/CommonStyle';
 
 function CommonTextField(props) {
-    const { width, placeholder } = props;
+    const { width, placeholder, onChange } = props;
 
-    return <StyledInput label="" variant="outlined" fullWidth placeholder={placeholder} width={width} />;
+    return <StyledInput type="search" label="" variant="outlined" fullWidth placeholder={placeholder} width={width} onChange={onChange} />;
 }
 
 CommonTextField.propTypes = {
     width: PropTypes.string,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func
 };
 
 export default CommonTextField;

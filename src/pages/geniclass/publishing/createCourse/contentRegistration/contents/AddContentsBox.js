@@ -5,19 +5,19 @@ import PropTypes from 'prop-types';
 import { ReactComponent as DotsSixVerticalIcon } from '../../../../../assets/images/DotsSixVerticalIcon.svg';
 import { ReactComponent as PlayCircleIcon } from '../../../../../assets/images/PlayCircleIcon.svg';
 import { ReactComponent as TrashIcon } from '../../../../../assets/images/TrashIcon.svg';
-import { Flex, FlexCenter, FlexSpace, IconButtonStyle, ArrowTooltipStyle } from '../../../common/styled/CommonStyle';
-import TooltipArrowYellow from '../../../../../assets/images/TooltipArrowYellow.svg';
+import { Flex, FlexCenter, FlexSpace, IconButtonStyle, ArrowTooltipStyle, FlexColumn } from '../../../common/styled/CommonStyle';
+import TooltipArrowOrange from '../../../../../assets/images/TooltipArrowOrange.svg';
 import CommonDialog from '../../../common/CommonDialog';
 import { useViewSize } from '../../../../../store';
 
-const BoxStyle = styled(Box)(({ theme, contentsWidth }) => ({
+const BoxStyle = styled(Box)(({ theme, open, isHd, isSl }) => ({
     width: '100%',
-    paddingBottom: contentsWidth < 1000 ? 16 : 22,
+    paddingBottom: open ? (isHd ? 16 : 22) : isSl ? 16 : 22,
     boxSizing: 'border-box',
     borderBottom: '1px solid #E1E1E1',
     display: 'flex',
     alignItems: 'flex-start',
-    marginBottom: contentsWidth < 1000 ? 18 : 28,
+    marginBottom: open ? (isHd ? 18 : 28) : isSl ? 18 : 28,
     '&:last-child': {
         marginBottom: 0
     }
@@ -45,21 +45,27 @@ const IconPosition = styled(Box)(({ theme }) => ({
     transform: 'translate(-50%, -50%)'
 }));
 
-const ContentsInfoBox = styled(FlexSpace)(({ theme, contentsWidth }) => ({
-    width: contentsWidth ? 'calc(100% - 25px - 30% - 15px)' : 'calc(100% - 32px - 30% - 15px)'
+const ContentsInfoBox = styled(FlexSpace)(({ theme, open, isHd, isSl }) => ({
+    width: open
+        ? isHd
+            ? 'calc(100% - 25px - 30% - 15px)'
+            : 'calc(100% - 32px - 30% - 15px)'
+        : isSl
+          ? 'calc(100% - 25px - 30% - 15px)'
+          : 'calc(100% - 32px - 30% - 15px)'
 }));
 
-const DeleteIconButton = styled(IconButtonStyle)(({ theme, contentsWidth }) => ({
+const DeleteIconButton = styled(IconButtonStyle)(({ theme, open, isHd, isSl }) => ({
     '&.MuiButtonBase-root': {
-        width: contentsWidth < 1000 ? 35 : 45,
-        height: contentsWidth < 1000 ? 35 : 45,
+        width: open ? (isHd ? 35 : 45) : isSl ? 35 : 45,
+        height: open ? (isHd ? 35 : 45) : isSl ? 35 : 45,
         background: '#D8E5FC',
         '&:hover': {
             background: '#D8E5FC'
         },
         '& svg': {
-            width: contentsWidth < 1000 ? 18 : 24,
-            height: contentsWidth < 1000 ? 18 : 24,
+            width: open ? (isHd ? 18 : 24) : isSl ? 18 : 24,
+            height: open ? (isHd ? 18 : 24) : isSl ? 18 : 24,
             '& path': {
                 stroke: '#1976d2'
             }
@@ -67,19 +73,21 @@ const DeleteIconButton = styled(IconButtonStyle)(({ theme, contentsWidth }) => (
     }
 }));
 
-const ChipBox = styled(FlexCenter)(({ theme, contentsWidth }) => ({
-    minWidth: contentsWidth < 1000 ? 55 : 69,
-    height: contentsWidth < 1000 ? 20 : 24,
-    padding: contentsWidth < 1000 ? '0 5px' : '0 8px',
+const ChipBox = styled(FlexCenter)(({ theme, open, isHd, isSl }) => ({
+    minWidth: 50,
+    height: open ? (isHd ? 20 : 24) : isSl ? 20 : 24,
+    padding: open ? (isHd ? '0 5px' : '0 8px') : isSl ? '0 5px' : '0 8px',
     border: '1px solid #1976D2',
     borderRadius: 100,
     boxSizing: 'border-box',
-    marginRight: contentsWidth < 1000 ? 5 : 10,
+    marginRight: open ? (isHd ? 5 : 10) : isSl ? 5 : 10,
+    marginBottom: open ? (isHd ? '1%' : '2%') : isSl ? '1%' : '2%',
     '& p': {
-        fontSize: contentsWidth < 1000 ? '0.625rem' : '0.75rem',
+        fontSize: open ? (isHd ? '0.625rem' : '0.75rem') : isSl ? '0.625rem' : '0.75rem',
         color: '#1976D2',
         fontWeight: 600,
-        letterSpacing: '-0.24px'
+        letterSpacing: '-0.24px',
+        lineHeight: 'normal'
     }
 }));
 
@@ -105,36 +113,38 @@ const PrintChipBox = styled(ChipBox)(({ theme }) => ({
     }
 }));
 
-export const CourseText = styled(Typography)(({ theme, contentsWidth }) => ({
+export const CourseText = styled(Typography)(({ theme, open, isHd, isSl }) => ({
     '&.MuiTypography-root': {
-        fontSize: contentsWidth < 1000 ? '0.688rem' : '0.875rem',
+        fontSize: open ? (isHd ? '0.688rem' : '0.875rem') : isSl ? '0.688rem' : '0.875rem',
         color: '#393939',
         fontWeight: 500,
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        marginBottom: open ? (isHd ? '1%' : '2%') : isSl ? '1%' : '2%'
     }
 }));
 
-export const TitleText = styled(Typography)(({ theme, contentsWidth }) => ({
+export const TitleText = styled(Typography)(({ theme, open, isHd, isSl }) => ({
     '&.MuiTypography-root': {
-        width: '100%',
-        fontSize: contentsWidth < 1000 ? '0.875rem' : '1rem',
+        maxWidth: '100%',
+        display: 'inline-block',
+        fontSize: open ? (isHd ? '0.875rem' : '1rem') : isSl ? '0.875rem' : '1rem',
         color: '#333',
         fontWeight: 600,
         textAlign: 'left',
-        marginTop: contentsWidth < 1000 ? 8 : 15,
-        marginBottom: contentsWidth < 1000 ? 5 : 10,
+        marginTop: open ? (isHd ? '1%' : '3%') : isSl ? '1%' : '3%',
+        marginBottom: open ? (isHd ? '1%' : '3%') : isSl ? '1%' : '3%',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap'
     }
 }));
 
-export const TextStyle = styled(Typography)(({ theme, contentsWidth }) => ({
+export const TextStyle = styled(Typography)(({ theme, open, isHd, isSl }) => ({
     '&.MuiTypography-root': {
         width: '100%',
-        fontSize: contentsWidth < 1000 ? '0.75rem' : '0.875rem',
+        fontSize: open ? (isHd ? '0.75rem' : '0.875rem') : isSl ? '0.75rem' : '0.875rem',
         color: '#737373',
         fontWeight: 400,
         textAlign: 'left',
@@ -145,8 +155,8 @@ export const TextStyle = styled(Typography)(({ theme, contentsWidth }) => ({
 }));
 
 function AddContentsBox(props) {
-    const { isLg } = useViewSize();
-    const { index, list, contentsWidth } = props;
+    const { isHd, isSl } = useViewSize();
+    const { index, list, open } = props;
     const [deleteBtn, setDeleteBtn] = React.useState(false);
 
     const handleClickDeleteDialog = () => {
@@ -158,8 +168,14 @@ function AddContentsBox(props) {
     };
 
     return (
-        <BoxStyle key={index} contentsWidth={contentsWidth}>
-            <IconButtonStyle sx={{ width: contentsWidth < 1000 ? 25 : 32, height: contentsWidth < 1000 ? 25 : 32 }} disableRipple>
+        <BoxStyle key={index} open={open} isHd={isHd} isSl={isSl}>
+            <IconButtonStyle
+                sx={{
+                    width: open ? (isHd ? '25px' : '32px') : isSl ? '25px' : '32px',
+                    height: open ? (isHd ? '25px' : '32px') : isSl ? '25px' : '32px'
+                }}
+                disableRipple
+            >
                 <DotsSixVerticalIcon />
             </IconButtonStyle>
             <ImageBox>
@@ -170,56 +186,72 @@ function AddContentsBox(props) {
                     </IconPosition>
                 )}
             </ImageBox>
-            <ContentsInfoBox contentsWidth={contentsWidth}>
-                <Box sx={{ width: contentsWidth < 1000 ? 'calc(100% - 35px - 10px)' : 'calc(100% - 45px - 10px)' }}>
-                    <Flex>
+            <ContentsInfoBox open={open} isHd={isHd} isSl={isSl}>
+                <FlexColumn
+                    sx={{
+                        width: open
+                            ? isHd
+                                ? 'calc(100% - 35px - 10px)'
+                                : 'calc(100% - 45px - 10px)'
+                            : isSl
+                              ? 'calc(100% - 35px - 10px)'
+                              : 'calc(100% - 45px - 10px)'
+                    }}
+                >
+                    <Flex sx={{ flexWrap: 'wrap' }}>
                         {list.chip === '멀티미디어' ? (
-                            <ChipBox contentsWidth={contentsWidth}>
+                            <ChipBox open={open} isHd={isHd} isSl={isSl}>
                                 <Typography>{list.chip}</Typography>
                             </ChipBox>
                         ) : list.chip === 'PDF' ? (
-                            <PdfChipBox contentsWidth={contentsWidth}>
+                            <PdfChipBox open={open} isHd={isHd} isSl={isSl}>
                                 <Typography>{list.chip}</Typography>
                             </PdfChipBox>
                         ) : (
-                            <SharingChipBox contentsWidth={contentsWidth}>
+                            <SharingChipBox open={open} isHd={isHd} isSl={isSl}>
                                 <Typography>{list.chip}</Typography>
                             </SharingChipBox>
                         )}
 
                         {list.print && (
-                            <PrintChipBox contentsWidth={contentsWidth}>
+                            <PrintChipBox open={open} isHd={isHd} isSl={isSl}>
                                 <Typography>스마트 페이퍼</Typography>
                             </PrintChipBox>
                         )}
 
-                        <CourseText contentsWidth={contentsWidth}>{list.course}</CourseText>
+                        <CourseText open={open} isHd={isHd} isSl={isSl}>
+                            {list.course}
+                        </CourseText>
                     </Flex>
                     <ArrowTooltipStyle
                         title={
                             <Box sx={{ maxWidth: 200 }}>
-                                <Typography>{list.title}</Typography>
+                                <Typography sx={{ fontWeight: '600 !important' }}>{list.title}</Typography>
                             </Box>
                         }
                         placement="bottom"
-                        top={'-20px'}
+                        top={'-9px'}
                         left={'50%'}
-                        background={'#F5CD79'}
-                        triangle={TooltipArrowYellow}
+                        background={'#F80'}
+                        triangle={TooltipArrowOrange}
                     >
-                        <TitleText contentsWidth={contentsWidth}>{list.title}</TitleText>
+                        <TitleText open={open} isHd={isHd} isSl={isSl}>
+                            {list.title}
+                        </TitleText>
                     </ArrowTooltipStyle>
 
-                    <TextStyle contentsWidth={contentsWidth}>{list.sub}</TextStyle>
-                </Box>
-                <DeleteIconButton contentsWidth={contentsWidth} onClick={handleClickDeleteDialog} disableRipple>
+                    <TextStyle open={open} isHd={isHd} isSl={isSl}>
+                        {list.sub}
+                    </TextStyle>
+                </FlexColumn>
+                <DeleteIconButton open={open} isHd={isHd} isSl={isSl} onClick={handleClickDeleteDialog} disableRipple>
                     <TrashIcon />
                 </DeleteIconButton>
             </ContentsInfoBox>
 
             <CommonDialog
                 open={deleteBtn}
-                title={''}
+                title={'알림'}
                 message={<Typography>‘콘텐츠명' 콘텐츠를 삭제하시겠습니까?</Typography>}
                 onClose={handleCloseDeleteDialog}
                 btnClick1={handleCloseDeleteDialog}
@@ -231,7 +263,7 @@ function AddContentsBox(props) {
 AddContentsBox.propTypes = {
     index: PropTypes.number,
     list: PropTypes.array,
-    contentsWidth: PropTypes.number
+    open: PropTypes.bool
 };
 
 export default AddContentsBox;

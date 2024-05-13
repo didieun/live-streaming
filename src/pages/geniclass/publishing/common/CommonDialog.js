@@ -28,7 +28,11 @@ function CommonDialog(props) {
         btnText1,
         btnText2,
         btnClick1,
-        btnClick2
+        btnClick2,
+        disabled1 = false,
+        disabled2 = false,
+        error1 = false,
+        error2 = false
     } = props;
 
     return (
@@ -49,24 +53,27 @@ function CommonDialog(props) {
                 <ActionBox mr={actionBtn1 && actionBtn2}>
                     {actionBtn1 && (
                         <CommonButton
-                            width={btnWidth ? btnWidth : '154px'}
-                            height={'47px'}
+                            width={actionBtn1 && actionBtn2 ? (btnWidth ? btnWidth : '154px') : btnWidth ? btnWidth : '300px'}
+                            height={'50px'}
                             text={btnText1 ? btnText1 : '취소'}
-                            borderRadius={'4px'}
-                            background={'#F5F5F5'}
-                            color={'#434343'}
+                            border={'#D5D4DC'}
+                            background={'#fff'}
+                            color={'#333'}
                             onClick={btnClick1}
+                            disabled={disabled1}
+                            error={error1}
                         />
                     )}
                     {actionBtn2 && (
                         <CommonButton
-                            width={btnWidth ? btnWidth : '154px'}
-                            height={'47px'}
+                            width={actionBtn1 && actionBtn2 ? (btnWidth ? btnWidth : '154px') : btnWidth ? btnWidth : '300px'}
+                            height={'50px'}
                             text={btnText2 ? btnText2 : '삭제'}
-                            borderRadius={'4px'}
                             background={'#2F3640'}
                             color={'#fff'}
                             onClick={btnClick2}
+                            disabled={disabled2}
+                            error={error2}
                         />
                     )}
                 </ActionBox>
@@ -79,7 +86,7 @@ CommonDialog.propTypes = {
     open: PropTypes.bool,
     title: PropTypes.string,
     children: PropTypes.func,
-    message: PropTypes.string,
+    message: PropTypes.object,
     onClose: PropTypes.func,
     action: PropTypes.bool,
     actionBtn1: PropTypes.bool,
@@ -88,7 +95,11 @@ CommonDialog.propTypes = {
     btnText1: PropTypes.string,
     btnText2: PropTypes.string,
     btnClick1: PropTypes.func,
-    btnClick2: PropTypes.func
+    btnClick2: PropTypes.func,
+    disabled1: PropTypes.bool,
+    disabled2: PropTypes.bool,
+    error1: PropTypes.string,
+    error2: PropTypes.string
 };
 
 export default CommonDialog;

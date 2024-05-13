@@ -83,11 +83,10 @@ const PopoverBox = styled(Popover)(({ theme }) => ({
         '& .MuiList-root': {
             padding: 4,
             '& .MuiButtonBase-root': {
-                fontSize: '1rem',
+                fontSize: '0.875rem',
                 height: 47,
                 color: '#111',
-                justifyContent: 'center',
-                padding: '0',
+                padding: '0 12px',
                 boxSizing: 'border-box',
                 '&:hover': {
                     background: '#f5f6fa',
@@ -240,7 +239,7 @@ const FileList = () => {
 
             <CommonDialog
                 open={deleteBtn}
-                title={''}
+                title={'알림'}
                 message={<Typography>이미지를 삭제하시겠습니까?</Typography>}
                 onClose={handleCloseDeleteDialog}
                 btnClick1={handleCloseDeleteDialog}

@@ -1,68 +1,31 @@
 import React from 'react';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
-import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { ReactComponent as CalendarBlankIcon } from '../../../assets/images/CalendarBlankIcon.svg';
-import { CalendarContainerBox, CalendarMarginLeftRight, CalendarTextStyle, FlexColumn, IconButtonStyle } from './styled/CommonStyle';
-import { Box } from '@mui/material';
+import { DateCalendarBox } from './styled/CommonStyle';
+import { ReactComponent as CalendarLeftArrowIcon } from '../../../assets/images/CalendarLeftArrowIcon.svg';
+import { ReactComponent as CalendarRightArrowIcon } from '../../../assets/images/CalendarRightArrowIcon.svg';
+import PropTypes from 'prop-types';
+
+const slots = {
+    leftArrowIcon: CalendarLeftArrowIcon,
+    rightArrowIcon: CalendarRightArrowIcon
+};
 
 function CommonCalendar(props) {
-    const [calendarOpen, setCalendarOpen] = React.useState(false);
-    const [endCalendarOpen, setEndCalendarOpen] = React.useState(false);
+    const formats = {
+        monthAndYear: 'YYYY M월'
+    };
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['DatePicker']}>
-                <CalendarContainerBox>
-                    <FlexColumn>
-                        <CalendarTextStyle>강의시작</CalendarTextStyle>
-                        <DatePicker
-                            defaultValue={dayjs()}
-                            format="MMMM DD, YYYY"
-                            open={calendarOpen}
-                            onClose={() => setCalendarOpen(false)}
-                            slotProps={{
-                                textField: {
-                                    onClick: () => setCalendarOpen(true)
-                                    // placeholder: 'Start'
-                                }
-                            }}
-                            slots={{
-                                openPickerButton: (props) => (
-                                    <IconButtonStyle {...props} disableRipple>
-                                        <CalendarBlankIcon />
-                                    </IconButtonStyle>
-                                )
-                            }}
-                        />
-                    </FlexColumn>
-
-                    <CalendarMarginLeftRight>~</CalendarMarginLeftRight>
-
-                    <FlexColumn>
-                        <CalendarTextStyle>강의종료</CalendarTextStyle>
-                        <DatePicker
-                            format="MMMM DD, YYYY"
-                            open={endCalendarOpen}
-                            onClose={() => setEndCalendarOpen(false)}
-                            slotProps={{
-                                textField: {
-                                    onClick: () => setEndCalendarOpen(true)
-                                    // placeholder: 'End'
-                                }
-                            }}
-                            slots={{
-                                openPickerButton: (props) => (
-                                    <IconButtonStyle {...props} disableRipple>
-                                        <CalendarBlankIcon />
-                                    </IconButtonStyle>
-                                )
-                            }}
-                        />
-                    </FlexColumn>
-                </CalendarContainerBox>
-            </DemoContainer>
+        <LocalizationProvider dateAdapter={AdapterDayjs} dateFormats={formats}>
+            <DateCalendarBox
+                defaultValue={dayjs()}
+                showDaysOutsideCurrentMonth
+                // fixedWeekNumber={5}
+                dayOfWeekFormatter={(day) => `${day}`}
+                slots={slots}
+            />
         </LocalizationProvider>
     );
 }

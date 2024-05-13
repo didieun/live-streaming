@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import React from 'react';
-import CommonRadio from '../../common/CommonRadio';
+import CommonRadioGroup from '../../common/CommonRadioGroup';
 import View from '../view/View';
 import PropTypes from 'prop-types';
 
@@ -48,7 +48,7 @@ const WhiteBoard = (props) => {
         <Container>
             {sort && (
                 <ControlBoxSpace>
-                    <CommonRadio handleChange={handleChange} value={value} valueList={valueList} />
+                    <CommonRadioGroup handleChange={handleChange} value={value} valueList={valueList} />
                 </ControlBoxSpace>
             )}
 

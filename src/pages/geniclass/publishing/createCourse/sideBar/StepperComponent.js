@@ -15,13 +15,13 @@ const StepperBox = styled(Stepper)(({ theme }) => ({
             '&.Mui-active': {
                 '& div': {
                     borderRadius: '50%',
-                    background: '#4d9fff !important'
+                    background: '#3190FF !important'
                 }
             },
             '&.Mui-completed': {
                 '& div': {
                     borderRadius: '50%',
-                    background: '#4d9fff !important'
+                    background: '#3190FF !important'
                 }
             }
         },
@@ -45,7 +45,7 @@ const StepperBox = styled(Stepper)(({ theme }) => ({
             marginLeft: 24,
             '& .MuiStepConnector-line': {
                 borderColor: '#d9d9d9',
-                minHeight: 25
+                minHeight: 26
             }
         }
     }
@@ -127,7 +127,7 @@ const StepperComponent = (props) => {
 };
 
 StepperComponent.propTypes = {
-    steps: PropTypes.object,
+    steps: PropTypes.array,
     activeStep: PropTypes.number,
     completed: PropTypes.object,
     handleActiveStep: PropTypes.func

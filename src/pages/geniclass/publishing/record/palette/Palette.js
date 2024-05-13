@@ -1,6 +1,6 @@
-import { styled } from '@mui/material/styles';
-import { Box, IconButton } from '@mui/material';
-import React from 'react';
+import {styled} from "@mui/material/styles";
+import {Box, IconButton} from "@mui/material";
+import React from "react";
 import { ReactComponent as HandPointing } from '../../../../assets/images/HandPointing.svg';
 import { ReactComponent as PenLineIcon } from '../../../../assets/images/PenLineIcon.svg';
 import { ReactComponent as ColorCheckIcon } from '../../../../assets/images/ColorCheckIcon.svg';
@@ -8,15 +8,15 @@ import { ReactComponent as PenEraserIcon } from '../../../../assets/images/PenEr
 import { ReactComponent as HighlighterIcon } from '../../../../assets/images/HighlighterIcon.svg';
 import { ReactComponent as PenSelectIcon } from '../../../../assets/images/PenSelectIcon.svg';
 import PaletteArrow from '../../../../assets/images/PaletteArrow.svg';
-import { useViewSize } from '../../../../store';
+import {useViewSize} from "../../../../store";
 
 const PenBox = styled(Box)(({ theme }) => ({
-    position: 'absolute',
+    position:'absolute',
     top: 25,
     left: 25,
     borderRadius: 6,
     background: '#fff',
-    boxSizing: 'border-box',
+    boxSizing:'border-box',
     border: '1px solid #a4a4a4'
 }));
 
@@ -65,7 +65,7 @@ const PenBoxSub = styled(Box)(({ theme, isMd }) => ({
     }
 }));
 
-const PenSelectBox = styled(Box)(({ theme }) => ({
+const PenSelectBox = styled(Box)(({ theme, select }) => ({
     width: 26,
     height: 26,
     boxSizing: 'border-box',
@@ -74,7 +74,7 @@ const PenSelectBox = styled(Box)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    border: '2px solid transparent',
+    border: select ? '2px solid #4dbdcf' : '2px solid transparent',
     '&:hover': {
         border: '2px solid #4dbdcf'
     }
@@ -104,7 +104,7 @@ const ColorSelectInBox = styled(Box)(({ theme, color }) => ({
     height: 16,
     boxSizing: 'border-box',
     borderRadius: '50%',
-    background: color,
+    background: `rgba(${color}, 1)`,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -123,7 +123,7 @@ const PenIconButton = styled(IconButton)(({ theme, select, color, isMd }) => ({
             background: 'rgba(228, 228, 228, 0.60)'
         },
         '& .highlighter-color, .pen-select-color': {
-            fill: color ? color : '#000000'
+            fill: color ? `rgba(${color}, 1)` : '#000000'
         },
         '& .eraser-color': {
             fill: select ? '#F2C336' : 'transparent'
@@ -136,7 +136,7 @@ const PenColorIconButton = styled(PenIconButton)(({ theme, color, border }) => (
         '& div': {
             width: 30,
             height: 30,
-            background: color ? color : '#000000',
+            background: color ? `rgba(${color}, 1)` : '#000000',
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
@@ -150,9 +150,10 @@ const PenColorIconButton = styled(PenIconButton)(({ theme, color, border }) => (
 const Palette = () => {
     const { isSmall, isMd } = useViewSize();
     const [line, setLine] = React.useState(false);
+    const [selectLine, setSelectLine] = React.useState(4);
     const [handPoint, setHandPoint] = React.useState(false);
     const [color, setColor] = React.useState(false);
-    const [selectColor, setSelectColor] = React.useState('#000');
+    const [selectColor, setSelectColor] = React.useState('0, 0, 0');
     const [eraser, setEraser] = React.useState(false);
     const [highlighter, setHighlighter] = React.useState(false);
     const [pen, setPen] = React.useState(false);
@@ -169,21 +170,21 @@ const Palette = () => {
         { size: 10 }
     ];
     const colorList = [
-        { color: '#000' },
-        { color: '#404040' },
-        { color: '#7f7f7f' },
-        { color: '#bfbfbf' },
-        { color: '#fff' },
-        { color: '#f2441d' },
-        { color: '#f29d1d' },
-        { color: '#ffff54' },
-        { color: '#bcfd53' },
-        { color: '#76b856' },
-        { color: '#2e6df6' },
-        { color: '#2548ac' },
-        { color: '#0f0372' },
-        { color: '#961dc0' },
-        { color: '#5b2f8b' }
+        { color: '0, 0, 0' },
+        { color: '64, 64, 64' },
+        { color: '127, 127, 127' },
+        { color: '191, 191, 191' },
+        { color: '255, 255, 255' },
+        { color: '242, 68, 29' },
+        { color: '242, 157, 29' },
+        { color: '255, 255, 84' },
+        { color: '188, 253, 83' },
+        { color: '118, 184, 86' },
+        { color: '46, 109, 246' },
+        { color: '37,72,172' },
+        { color: '15, 3, 114' },
+        { color: '150, 29, 192' },
+        { color: '91, 47, 139' }
     ];
 
     const handleClickHandPoint = () => {
@@ -231,6 +232,10 @@ const Palette = () => {
         setSelectColor(value);
     };
 
+    const handleClickSelectLine = (value) => {
+        setSelectLine(value);
+    };
+
     return (
         <PenBox sx={{ display: isSmall ? 'none' : isMd ? '' : '' }}>
             <PenBoxIn sx={{ flexDirection: isMd ? 'row' : 'column' }}>
@@ -267,7 +272,7 @@ const Palette = () => {
                 <PenSubPosition isMd={isMd}>
                     <PenBoxSub isMd={isMd}>
                         {lineList.map((list, i) => (
-                            <PenSelectBox key={i}>
+                            <PenSelectBox key={i} select={selectLine === list.size} onClick={() => handleClickSelectLine(list.size)}>
                                 <LineSelectInBox size={list.size} />
                             </PenSelectBox>
                         ))}
@@ -279,7 +284,7 @@ const Palette = () => {
                 <PenSubPositionColor isMd={isMd}>
                     <PenBoxSub isMd={isMd}>
                         {colorList.map((list, i) => (
-                            <PenSelectBox key={i} onClick={() => handleClickSelectColor(list.color)}>
+                            <PenSelectBox key={i} select={selectColor === list.color} onClick={() => handleClickSelectColor(list.color)}>
                                 <ColorSelectInBox color={list.color} />
                             </PenSelectBox>
                         ))}

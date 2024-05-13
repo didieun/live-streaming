@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Select, Box } from '@mui/material';
-import { ReactComponent as ArrowDownIcon } from '../../../assets/images/ArrowDownIcon.svg';
+import { ReactComponent as ArrowIcon } from '../../../assets/images/ArrowIcon.svg';
 import { Menu, SelectFormControlBox } from './styled/CommonStyle';
 
 function CommonSelect(props) {
@@ -16,7 +16,7 @@ function CommonSelect(props) {
                 disabled={disabled}
                 IconComponent={(props) => (
                     <Box>
-                        <ArrowDownIcon {...props} />
+                        <ArrowIcon {...props} />
                     </Box>
                 )}
                 MenuProps={{

@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Select, Box } from '@mui/material';
-import { ReactComponent as ArrowDownIcon } from '../../../assets/images/ArrowDownIcon.svg';
-import { Menu, SelectFormControlBox, StyledInput, StyledTextarea, TextareaBox } from './styled/CommonStyle';
+import { StyledTextarea, TextareaBox } from './styled/CommonStyle';
 
 function CommonTextarea(props) {
     const { width, placeholder, minRows, maxRows } = props;
 
     return (
-        <TextareaBox width={width}>
-            <StyledTextarea label="" variant="outlined" fullWidth minRows={minRows} maxRows={maxRows} placeholder={placeholder} />
-        </TextareaBox>
+        <StyledTextarea width={width} label="" variant="outlined" fullWidth minRows={minRows} maxRows={maxRows} placeholder={placeholder} />
     );
 }
 

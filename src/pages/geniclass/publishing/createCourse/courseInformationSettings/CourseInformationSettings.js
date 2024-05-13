@@ -1,14 +1,14 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Box, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
-import CommonRadio from '../../common/CommonRadio';
+import CommonRadioGroup from '../../common/CommonRadioGroup';
 import CommonTextField from '../../common/CommonTextField';
 import CommonTextarea from '../../common/CommonTextarea';
 import { FlexCenter, MarginBottom25 } from '../../common/styled/CommonStyle';
 import CommonButton from '../../common/CommonButton';
 import PropTypes from 'prop-types';
 import { useViewSize } from '../../../../store';
-import CommonCalendar from '../../common/CommonCalendar';
+import CommonDatePicker from '../../common/CommonDatePicker';
 
 const Container = styled(Box)(({ theme, isMd, open }) => ({
     width: isMd ? (open ? '100%' : 'calc(100% - 60px)') : 850,
@@ -24,7 +24,7 @@ const TitleText = styled(Typography)(({ theme }) => ({
     '&.MuiTypography-root': {
         fontSize: '1.5rem',
         color: '#2F3640',
-        fontWeight: 700,
+        fontWeight: 600,
         letterSpacing: '0.5px'
     }
 }));
@@ -76,7 +76,7 @@ const InfoText = styled(Typography)(({ theme }) => ({
 const TopicBox = styled(Box)(({ theme }) => ({
     width: '100%',
     height: 132,
-    border: '1px solid #D4D4D4',
+    border: '1px solid #D5D4DC',
     boxSizing: 'border-box',
     borderRadius: 4,
     padding: '22px 21px',
@@ -123,14 +123,14 @@ const TopicChip = styled(ToggleButton)(({ theme }) => ({
         marginLeft: '0 !important',
         fontSize: '1.125rem',
         color: '#737373',
-        fontWeight: 500,
+        fontWeight: 400,
         '&.Mui-selected': {
-            background: '#4D9FFF',
+            background: '#3190FF',
             color: '#fff',
             border: '1px solid #4D9FFF !important'
         },
         '&:hover': {
-            background: '#4D9FFF',
+            background: '#3190FF',
             color: '#fff'
         }
     }
@@ -138,9 +138,9 @@ const TopicChip = styled(ToggleButton)(({ theme }) => ({
 
 function CourseInformationSettings(props) {
     const { isMd } = useViewSize();
-    const { handleComplete, open } = props;
+    const { handleComplete, open, handleChange, value, valueList } = props;
     const [topic, setTopic] = React.useState(-1);
-    const [value, setValue] = React.useState('1');
+
     const topicList = [
         { label: '태그' },
         { label: '테스트' },
@@ -156,28 +156,6 @@ function CourseInformationSettings(props) {
         { label: '테스트 교육과정' },
         { label: '테스트 교육과정' }
     ];
-    const valueList = [
-        {
-            label: '맞춤코칭',
-            value: '0'
-        },
-        {
-            label: '일시강의',
-            value: '1'
-        },
-        {
-            label: '상시강의',
-            value: '2'
-        },
-        {
-            label: '만족도 조사',
-            value: '3'
-        }
-    ];
-
-    const handleChange = (event) => {
-        setValue(event.target.value);
-    };
 
     const handleClickTopic = (event, newTopic) => {
         setTopic(newTopic);
@@ -190,7 +168,7 @@ function CourseInformationSettings(props) {
             </MarginBottom25>
 
             <RadioBox>
-                <CommonRadio handleChange={handleChange} value={value} valueList={valueList} />
+                <CommonRadioGroup handleChange={handleChange} value={value} valueList={valueList} />
             </RadioBox>
 
             <MarginBottom25>
@@ -225,8 +203,8 @@ function CourseInformationSettings(props) {
                     <NameText>
                         강의일정<span>(선택)</span>
                     </NameText>
-                    {/*<CommonCalendar />*/}
-                    <InfoText>강의 시작과 종료의 날짜, 시간을 선택 할 수 있습니다.</InfoText>
+                    <CommonDatePicker viewSize={isMd} />
+                    <InfoText sx={{ marginTop: '15px' }}>강의 시작과 종료의 날짜, 시간을 선택 할 수 있습니다.</InfoText>
                 </MarginBottom25>
             )}
             <MarginBottom25>
@@ -241,7 +219,7 @@ function CourseInformationSettings(props) {
                 <TopicBox>
                     <TopicBoxIn value={topic} exclusive onChange={handleClickTopic} aria-label="text alignment">
                         {topicList.map((list, i) => (
-                            <TopicChip value={i} disableRipple>
+                            <TopicChip key={i} value={i} disableRipple>
                                 {list.label}
                             </TopicChip>
                         ))}
@@ -262,14 +240,13 @@ function CourseInformationSettings(props) {
             </MarginBottom25>
             <FlexCenter sx={{ width: '100%' }}>
                 <CommonButton
-                    width={'293px'}
-                    height={'60px'}
+                    width={'202px'}
+                    height={'48px'}
                     text={'저장 후 계속'}
-                    background={'#4B7BEC'}
+                    background={'#2F3640'}
                     color={'#fff'}
-                    fontWeight={600}
-                    borderRadius={'4px'}
-                    fontSize={'1.25rem'}
+                    fontWeight={500}
+                    fontSize={'1rem'}
                     onClick={handleComplete}
                     disabled={false}
                 />
@@ -280,7 +257,10 @@ function CourseInformationSettings(props) {
 
 CourseInformationSettings.propTypes = {
     open: PropTypes.bool,
-    handleComplete: PropTypes.func
+    handleComplete: PropTypes.func,
+    handleChange: PropTypes.func,
+    value: PropTypes.string,
+    valueList: PropTypes.array
 };
 
 export default CourseInformationSettings;

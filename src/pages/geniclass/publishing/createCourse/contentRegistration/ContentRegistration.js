@@ -1,44 +1,49 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
-import CommonRadio from '../../common/CommonRadio';
+import CommonRadioGroup from '../../common/CommonRadioGroup';
 import CommonTextField from '../../common/CommonTextField';
-import { MarginBottom25, Flex } from '../../common/styled/CommonStyle';
+import { Flex, MarginBottom25 } from '../../common/styled/CommonStyle';
 import CommonButton from '../../common/CommonButton';
 import PropTypes from 'prop-types';
 import { useViewSize } from '../../../../store';
 import CommonSelect from '../../common/CommonSelect';
 import { ReactComponent as SearchIcon } from '../../../../assets/images/SearchIcon.svg';
 import ContentsComponent from './contents/ContentsComponent';
+import { headerHeight } from '../index';
 
 const Container = styled(Box)(({ theme, isLg, open }) => ({
-    padding: '25px 0',
+    width: open ? (isLg ? '100%' : 1280) : isLg ? 'calc(100% - 60px)' : 1280,
+    padding: isLg ? '25px 16px' : '25px 0',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start'
-    // margin: open ? '0 auto' : isLg ? '0 0 0 60px' : '0 auto'
+    alignItems: 'flex-start',
+    margin: open ? '0 auto' : isLg ? '0 0 0 60px' : '0 auto'
 }));
 
-export const RadioBox = styled(MarginBottom25)(({ theme, contentsWidth }) => ({
+export const RadioBox = styled(MarginBottom25)(({ theme, open, isSl, isSmall }) => ({
+    '& .MuiFormGroup-root': {
+        width: '100%'
+    },
     '& .MuiFormControlLabel-root': {
+        width: open ? (isSl ? 'calc(50% - 15px)' : '') : isSmall ? 'calc(50% - 15px)' : '',
         margin: '0 15px 0 0 !important',
-        '&:last-child': {
-            marginTop: contentsWidth < 500 ? '15px !important' : 0,
-            marginRight: '0 !important'
+        '&:nth-child(3)': {
+            marginTop: open ? (isSl ? '15px !important' : 0) : isSmall ? '15px !important' : 0
+        },
+        '&:nth-child(4)': {
+            marginTop: open ? (isSl ? '15px !important' : 0) : isSmall ? '15px !important' : 0
         }
     }
 }));
 
-export const SelectBox = styled(Box)(({ theme, isSd }) => ({
+export const SelectBox = styled(Box)(({ theme, isSl }) => ({
     width: '100%',
     display: 'grid',
-    gridTemplateColumns: isSd ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+    gridTemplateColumns: isSl ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
     gap: 15,
-    marginBottom: 15,
-    '& .MuiSelect-select': {
-        height: '57px !important'
-    }
+    marginBottom: 15
 }));
 
 export const SearchBox = styled(Box)(({ theme }) => ({
@@ -47,28 +52,27 @@ export const SearchBox = styled(Box)(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 25,
-    '& .MuiInputBase-root': {
-        height: '54px !important'
+    '& svg': {
+        '& .search': {
+            fill: '#Fff'
+        }
     },
-    '& .MuiSelect-select': {
-        height: '57px !important'
+    '& button:hover': {
+        '& svg': {
+            '& .search': {
+                fill: '#Fff'
+            }
+        }
     }
 }));
 
-export const SelectBoxWidth = styled(Box)(({ theme, contentsWidth }) => ({
-    width: 458,
-    marginBottom: contentsWidth < 1280 ? 15 : 0
+export const SelectBoxWidth = styled(Box)(({ theme, isSl }) => ({
+    width: isSl ? '100%' : 458
 }));
 
-const contentsMaxHeight = 'calc(100vh - 100px - 50px - 25px - 25px - 57px - 15px - 57px - 25px - 56px)';
-const contentsHeight = 'calc(100vh - 100px - 50px - 25px - 25px - 57px - 25px - 56px)';
 function ContentRegistration(props) {
-    const containerRef = useRef(null);
-    const headerRef = useRef(null);
-    const [contentRect, setContentRect] = useState({ x: 0, y: 0, width: 0, height: 0, direction: 'row' });
-
-    const { isLg, isSd } = useViewSize();
-    const { open, contentsWidth } = props;
+    const { isLg, isSl, isSmall } = useViewSize();
+    const { open } = props;
     const [value, setValue] = React.useState('0');
     const [filter, setFilter] = React.useState(0);
     const [folder, setFolder] = React.useState(0);
@@ -93,38 +97,6 @@ function ContentRegistration(props) {
         }
     ];
 
-    const calcContentRect = () => {
-        //
-        const containerRect = containerRef.current.getBoundingClientRect();
-        const headerRect = headerRef.current.getBoundingClientRect();
-
-        const maxWidth = 1280;
-        const contentWidth = containerRect.width > maxWidth ? maxWidth : containerRect.width;
-        const contentHeight = containerRect.height - headerRect.height;
-        const contentX = containerRect.width > maxWidth ? (containerRect.width - maxWidth) / 2 : 0;
-        const contentY = headerRect.height;
-
-        setContentRect({
-            x: contentX,
-            y: contentY,
-            width: contentWidth,
-            height: contentHeight,
-            direction: contentWidth < 800 ? 'column' : 'row'
-        });
-    };
-
-    useEffect(() => {
-        window.addEventListener('resize', calcContentRect);
-        return () => {
-            window.removeEventListener('resize', calcContentRect);
-        };
-    }, []);
-
-    useEffect(() => {
-        console.log('useEffect open : ', open);
-        calcContentRect();
-    }, [open]);
-
     const handleChange = (event) => {
         setValue(event.target.value);
     };
@@ -137,124 +109,103 @@ function ContentRegistration(props) {
         setFolder(event.target.value);
     };
 
-    console.log('render!!!');
-
     return (
-        <Container
-            isLg={isLg}
-            open={open}
-            ref={containerRef}
-            style={{
-                position: 'relative',
-                alignSelf: 'stretch',
-                height: '100%'
-            }}
-        >
-            <div style={{ margin: '0 auto', width: contentRect.width }} ref={headerRef}>
-                <RadioBox contentsWidth={contentsWidth}>
-                    <CommonRadio handleChange={handleChange} value={value} valueList={valueList} fontSize={'1rem'} />
-                </RadioBox>
+        <Container isLg={isLg} open={open}>
+            <RadioBox isSl={isSl} isSmall={isSmall} open={open}>
+                <CommonRadioGroup handleChange={handleChange} value={value} valueList={valueList} fontSize={'1rem'} />
+            </RadioBox>
 
-                {value === '0' && (
-                    <>
-                        <SelectBox isSd={isSd}>
-                            <CommonSelect filter={filter} handleChangeFilter={handleChangeFilter} menuList={menuList} />
-                            <CommonSelect filter={filter} handleChangeFilter={handleChangeFilter} menuList={menuList} />
-                            <CommonSelect filter={filter} handleChangeFilter={handleChangeFilter} menuList={menuList} />
-                            <CommonSelect filter={filter} handleChangeFilter={handleChangeFilter} menuList={menuList} />
-                        </SelectBox>
-                        <SearchBox>
-                            <CommonTextField placeholder={'콘텐츠를 직접 검색할수 있습니다.'} width={'calc(100% - 174px - 15px)'} />
-                            <CommonButton
-                                width={'174px'}
-                                height={'57px'}
-                                text={'검색'}
-                                background={'#4D9FFF'}
-                                color={'#fff'}
-                                fontWeight={600}
-                                borderRadius={'4px'}
-                                fontSize={'1.125rem'}
-                                disabled={false}
-                                startIcon={<SearchIcon />}
-                            />
-                        </SearchBox>
-                    </>
-                )}
-
-                {value === '1' && (
+            {value === '0' && (
+                <>
+                    <SelectBox isSl={isSl}>
+                        <CommonSelect filter={filter} handleChangeFilter={handleChangeFilter} menuList={menuList} />
+                        <CommonSelect filter={filter} handleChangeFilter={handleChangeFilter} menuList={menuList} />
+                        <CommonSelect filter={filter} handleChangeFilter={handleChangeFilter} menuList={menuList} />
+                        <CommonSelect filter={filter} handleChangeFilter={handleChangeFilter} menuList={menuList} />
+                    </SelectBox>
                     <SearchBox
                         sx={{
-                            flexDirection: contentsWidth < 1280 ? 'column' : 'row',
-                            alignItems: contentsWidth < 1280 ? 'flex-start' : 'center'
+                            '& .MuiTextField-root': {
+                                marginRight: '15px'
+                            }
                         }}
                     >
-                        <SelectBoxWidth contentsWidth={contentsWidth}>
-                            <CommonSelect filter={folder} handleChangeFilter={handleChangeFolderFilter} menuList={folderList} />
-                        </SelectBoxWidth>
-                        <Flex
-                            sx={{
-                                width: contentsWidth < 1280 ? '100%' : 'calc(100% - 458px)',
-                                justifyContent: contentsWidth < 1280 ? 'flex-start' : 'flex-end'
-                            }}
-                        >
-                            <CommonTextField placeholder={'콘텐츠를 직접 검색할수 있습니다.'} width={'624px'} />
-                            <Box sx={{ marginLeft: '9px' }}>
-                                <CommonButton
-                                    width={'174px'}
-                                    height={'57px'}
-                                    text={'검색'}
-                                    background={'#4D9FFF'}
-                                    color={'#fff'}
-                                    fontWeight={600}
-                                    borderRadius={'4px'}
-                                    fontSize={'1.125rem'}
-                                    disabled={false}
-                                    startIcon={<SearchIcon />}
-                                />
-                            </Box>
-                        </Flex>
-                    </SearchBox>
-                )}
-
-                {(value === '2' || value === '3') && (
-                    <SearchBox>
-                        <CommonTextField
-                            placeholder={
-                                value === '2'
-                                    ? '사이트 URL 주소를 입력하세요. ex) https://www.google.com'
-                                    : 'PDF공유 URL 주소를 입력하세요.'
-                            }
-                            width={'calc(100% - 174px - 15px)'}
-                        />
+                        <CommonTextField placeholder={'콘텐츠를 직접 검색할수 있습니다.'} width={'calc(100% - 137px - 15px)'} />
                         <CommonButton
-                            width={'174px'}
-                            height={'57px'}
-                            text={'담기'}
-                            background={'#4D9FFF'}
+                            width={'137px'}
+                            height={'44px'}
+                            text={'검색'}
+                            background={'#2f3640'}
                             color={'#fff'}
-                            fontWeight={600}
-                            borderRadius={'4px'}
-                            fontSize={'1.125rem'}
+                            fontSize={'1rem'}
                             disabled={false}
+                            startIcon={<SearchIcon />}
                         />
                     </SearchBox>
-                )}
-            </div>
+                </>
+            )}
 
-            <ContentsComponent
-                rect={contentRect}
-                radioValue={value === '0'}
-                contentsMaxHeight={contentsMaxHeight}
-                contentsHeight={contentsHeight}
-                contentsWidth={contentsWidth}
-            />
+            {value === '1' && (
+                <SearchBox
+                    sx={{
+                        flexDirection: isLg ? 'column' : 'row',
+                        alignItems: isLg ? 'flex-start' : 'center',
+                        '& .MuiTextField-root': {
+                            marginRight: '15px'
+                        }
+                    }}
+                >
+                    <SelectBoxWidth isSl={isSl}>
+                        <CommonSelect filter={folder} handleChangeFilter={handleChangeFolderFilter} menuList={folderList} />
+                    </SelectBoxWidth>
+                    <Flex sx={{ width: isLg ? '100%' : 'calc(100% - 456px - 15px)', marginTop: isLg ? '15px' : '0' }}>
+                        <CommonTextField placeholder={'콘텐츠를 직접 검색할수 있습니다.'} width={'calc(100% - 137px - 15px)'} />
+                        <CommonButton
+                            width={'137px'}
+                            height={'44px'}
+                            text={'검색'}
+                            background={'#2f3640'}
+                            color={'#fff'}
+                            fontSize={'1rem'}
+                            disabled={false}
+                            startIcon={<SearchIcon />}
+                        />
+                    </Flex>
+                </SearchBox>
+            )}
+
+            {(value === '2' || value === '3') && (
+                <SearchBox
+                    sx={{
+                        '& .MuiTextField-root': {
+                            marginRight: '15px'
+                        }
+                    }}
+                >
+                    <CommonTextField
+                        placeholder={
+                            value === '2' ? '사이트 URL 주소를 입력하세요. ex) https://www.google.com' : 'PDF공유 URL 주소를 입력하세요.'
+                        }
+                        width={'calc(100% - 137px - 15px)'}
+                    />
+                    <CommonButton
+                        width={'137px'}
+                        height={'44px'}
+                        text={'담기'}
+                        background={'#2f3640'}
+                        color={'#fff'}
+                        fontSize={'1rem'}
+                        disabled={false}
+                    />
+                </SearchBox>
+            )}
+            <ContentsComponent radioValue={value === '0'} open={open} />
         </Container>
     );
 }
 
 ContentRegistration.propTypes = {
-    open: PropTypes.bool,
-    contentsWidth: PropTypes.object
+    open: PropTypes.bool
 };
 
 export default ContentRegistration;

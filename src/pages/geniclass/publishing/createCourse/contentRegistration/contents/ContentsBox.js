@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
-import { Box, Button, MenuItem, MenuList, Popover, Typography } from '@mui/material';
+import { Box, Button, MenuItem, MenuList, Popover, Popper, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import { ReactComponent as PlayCircleIcon } from '../../../../../assets/images/PlayCircleIcon.svg';
 import { ReactComponent as PrintIcon } from '../../../../../assets/images/PrintIcon.svg';
 import { ReactComponent as ButtonAddIcon } from '../../../../../assets/images/ButtonAddIcon.svg';
 import { ReactComponent as DownloadSimpleIcon } from '../../../../../assets/images/DownloadSimpleIcon.svg';
 import { ReactComponent as TooltipCloseIcon } from '../../../../../assets/images/TooltipCloseIcon.svg';
-import TooltipArrowBlue from '../../../../../assets/images/TooltipArrowBlue.svg';
-import { ArrowTooltipStyle, Flex, FlexSpace, IconButtonStyle } from '../../../common/styled/CommonStyle';
-import TooltipArrowYellow from '../../../../../assets/images/TooltipArrowYellow.svg';
+import TooltipArrowBottomBlue from '../../../../../assets/images/TooltipArrowBottomBlue.svg';
+import { ArrowTooltipInStyle, ArrowTooltipStyle, Flex, FlexSpace, IconButtonStyle, PopperStyle } from '../../../common/styled/CommonStyle';
+import TooltipArrowOrange from '../../../../../assets/images/TooltipArrowOrange.svg';
 
 const BoxStyle = styled(Box)(({ theme }) => ({
     width: '100%',
@@ -137,8 +137,7 @@ const PopoverBox = styled(Popover)(({ theme }) => ({
                 height: 30,
                 color: '#444343',
                 fontWeight: 400,
-                justifyContent: 'center',
-                padding: '0',
+                padding: '0 12px',
                 boxSizing: 'border-box',
                 '&:hover': {
                     background: '#f5f6fa',
@@ -149,10 +148,54 @@ const PopoverBox = styled(Popover)(({ theme }) => ({
     }
 }));
 
+const TooltipStyle = styled(Box)(({ theme, triangle }) => ({
+    minWidth: 250,
+    maxWidth: 350,
+    position: 'absolute',
+    bottom: 35,
+    left: -35,
+    '& > div': {
+        minHeight: 20,
+        background: '#3190FF',
+        borderRadius: 6,
+        padding: 11,
+        position: 'relative',
+        zIndex: 1,
+        '&:before': {
+            content: "''",
+            backgroundImage: `url(${triangle})`,
+            backgroundRepeat: 'no-repeat',
+            position: 'absolute',
+            left: 64,
+            bottom: -20,
+            width: 24,
+            height: 24
+        }
+    },
+    '& p': {
+        fontSize: '0.938rem',
+        color: '#fff',
+        fontWeight: 400,
+        letterSpacing: '-0.2px',
+        marginRight: 10,
+        textAlign: 'left',
+        display: '-webkit-box',
+        wordBreak: 'keep-all',
+        whiteSpace: 'pre-line'
+    },
+    '& button': {
+        width: 20,
+        height: 20
+    }
+}));
 function ContentsBox(props) {
     const { index, list } = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [addTooltip, setAddTooltip] = React.useState(true);
+
+    useEffect(() => {
+        setAddTooltip(true);
+    }, []);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -208,26 +251,49 @@ function ContentsBox(props) {
                 <ContentsText>{list.text}</ContentsText>
                 <ArrowTooltipStyle
                     title={
-                        <Box sx={{ width: 250 }}>
-                            <Typography>{list.title}</Typography>
+                        <Box sx={{ maxWidth: 250 }}>
+                            <Typography sx={{ fontWeight: '600 !important' }}>{list.title}</Typography>
                         </Box>
                     }
                     placement="bottom"
-                    top={'-21px'}
+                    top={'-9px'}
                     left={'50%'}
-                    background={'#F5CD79'}
-                    triangle={TooltipArrowYellow}
+                    background={'#F80'}
+                    triangle={TooltipArrowOrange}
                 >
                     <ContentsTitleText>{list.title}</ContentsTitleText>
                 </ArrowTooltipStyle>
                 <FlexSpace>
-                    <Flex>
+                    <Flex sx={{ position: 'relative' }}>
                         <ButtonStyle disableRipple>
                             <ButtonAddIcon />
-                            <ArrowTooltipStyle
-                                open={index === 0 && addTooltip}
-                                title={
-                                    <Box>
+                            <Typography>담기</Typography>
+                            {/*<ArrowTooltipStyle*/}
+                            {/*    open={index === 0 && addTooltip}*/}
+                            {/*    title={*/}
+                            {/*        <ArrowTooltipInStyle>*/}
+                            {/*            <Typography sx={{ marginRight: 25 }}>*/}
+                            {/*                ‘담기' 버튼을 누르거나 드래그하여 <br />*/}
+                            {/*                수업 콘텐츠를 만들어보세요.*/}
+                            {/*            </Typography>*/}
+                            {/*            <IconButtonStyle onClick={handleCloseTooltip} disableRipple>*/}
+                            {/*                <TooltipCloseIcon />*/}
+                            {/*            </IconButtonStyle>*/}
+                            {/*        </ArrowTooltipInStyle>*/}
+                            {/*    }*/}
+                            {/*    placement="top"*/}
+                            {/*    bottom={'-43px'}*/}
+                            {/*    left={'50%'}*/}
+                            {/*    triangle={TooltipArrowBottomBlue}*/}
+                            {/*>*/}
+                            {/*    <Typography>담기</Typography>*/}
+                            {/*</ArrowTooltipStyle>*/}
+                        </ButtonStyle>
+
+                        {index === 0 && addTooltip && (
+                            <TooltipStyle triangle={TooltipArrowBottomBlue}>
+                                <Box>
+                                    <ArrowTooltipInStyle>
                                         <Typography sx={{ marginRight: 25 }}>
                                             ‘담기' 버튼을 누르거나 드래그하여 <br />
                                             수업 콘텐츠를 만들어보세요.
@@ -235,16 +301,10 @@ function ContentsBox(props) {
                                         <IconButtonStyle onClick={handleCloseTooltip} disableRipple>
                                             <TooltipCloseIcon />
                                         </IconButtonStyle>
-                                    </Box>
-                                }
-                                placement="bottom"
-                                top={'-20px'}
-                                left={'50%'}
-                                triangle={TooltipArrowBlue}
-                            >
-                                <Typography>담기</Typography>
-                            </ArrowTooltipStyle>
-                        </ButtonStyle>
+                                    </ArrowTooltipInStyle>
+                                </Box>
+                            </TooltipStyle>
+                        )}
                     </Flex>
 
                     <Flex>

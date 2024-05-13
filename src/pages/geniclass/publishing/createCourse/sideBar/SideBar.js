@@ -1,22 +1,25 @@
 import { styled } from '@mui/material/styles';
 import React from 'react';
-import { IconButton, Drawer, Typography } from '@mui/material';
-import { ReactComponent as SideBarArrowIcon } from '../../../../assets/images/SideBarArrowIcon.svg';
+import { IconButton, Drawer, Typography, Box } from '@mui/material';
+import { ReactComponent as ArrowLineLeft } from '../../../../assets/images/ArrowLineLeft.svg';
 import PropTypes from 'prop-types';
 import StepperComponent from './StepperComponent';
 import CommonButton from '../../common/CommonButton';
 import CommonDialog from '../../common/CommonDialog';
+import { headerHeight, sideBarWidth } from '../index';
+import SideBarLayoutComponent from './SideBarLayoutComponent';
+import { IconButtonStyle } from '../../common/styled/CommonStyle';
 
-const SideBarBox = styled(Drawer)(({ theme, width }) => ({
+const SideBarBox = styled(Drawer)(({ theme }) => ({
     '&.MuiDrawer-root': {
         '& .MuiPaper-root': {
-            width: width,
-            height: 'calc(100vh - 100px)',
+            width: `${sideBarWidth}px`,
+            height: `calc(100vh - ${headerHeight}px)`,
             border: 0,
             borderRight: '1px solid #D4D4D4',
             background: '#fff',
             position: 'relative',
-            padding: '40px 18px 18px',
+            padding: '49px 20px 25px',
             boxSizing: 'border-box',
             display: 'flex',
             flexDirection: 'column',
@@ -25,24 +28,31 @@ const SideBarBox = styled(Drawer)(({ theme, width }) => ({
     }
 }));
 
-const CloseSideBarBtn = styled(IconButton)(({ theme }) => ({
+const CloseSideBarBtn = styled(IconButtonStyle)(({ theme }) => ({
     '&.MuiButtonBase-root': {
-        width: 35,
-        height: 35,
-        boxShadow: '0 2px 15px 0 rgba(0, 0, 0, 0.15)',
-        borderRadius: '50%',
-        background: '#fff',
+        width: 20,
+        height: 20,
         position: 'absolute',
         top: 19,
-        right: 19,
-        '&:hover': {
-            background: '#fff'
-        }
+        right: 19
     }
 }));
 
 const SideBar = (props) => {
-    const { width, open, handleSideBarClose, steps, activeStep, completed, handleActiveStep, setActiveStep } = props;
+    const {
+        open,
+        handleSideBarClose,
+        steps,
+        activeStep,
+        completed,
+        handleActiveStep,
+        setActiveStep,
+        typeValue,
+        layoutTooltip,
+        contentsTooltip,
+        handleCloseLayoutTooltip,
+        handleCloseContentsTooltip
+    } = props;
     const [movement, setMovementBtn] = React.useState(false);
 
     const handleClickMovementDialog = () => {
@@ -54,32 +64,43 @@ const SideBar = (props) => {
     };
 
     return (
-        <SideBarBox width={width} variant="persistent" anchor="left" open={open}>
-            <CloseSideBarBtn onClick={handleSideBarClose}>
-                <SideBarArrowIcon style={{ transform: 'scaleX(-1)' }} />
+        <SideBarBox variant="persistent" anchor="left" open={open}>
+            <CloseSideBarBtn onClick={handleSideBarClose} sx={{ width: 20, height: 20 }} disableRipple>
+                <ArrowLineLeft />
             </CloseSideBarBtn>
-            <StepperComponent
-                steps={steps}
-                activeStep={activeStep}
-                completed={completed}
-                handleActiveStep={handleActiveStep}
-                setActiveStep={setActiveStep}
-            />
+            <Box sx={{ height: 'calc(100% - 48px - 25px)' }}>
+                <StepperComponent
+                    steps={steps}
+                    activeStep={activeStep}
+                    completed={completed}
+                    handleActiveStep={handleActiveStep}
+                    setActiveStep={setActiveStep}
+                />
+                {typeValue !== '0' && activeStep === 1 && (
+                    <SideBarLayoutComponent
+                        layoutTooltip={layoutTooltip}
+                        contentsTooltip={contentsTooltip}
+                        handleCloseLayoutTooltip={handleCloseLayoutTooltip}
+                        handleCloseContentsTooltip={handleCloseContentsTooltip}
+                    />
+                )}
+            </Box>
+
             <CommonButton
                 width={'100%'}
-                height={'60px'}
+                height={'48px'}
                 text={'교육과정 홈으로 이동'}
-                background={'rgba(235, 235, 235, 0.40)'}
-                color={'#B3B3B3'}
-                fontWeight={600}
-                borderRadius={'4px'}
+                background={'#fff'}
+                border={'#D5D4DC'}
+                color={'#2F3640'}
+                fontWeight={500}
                 fontSize={'0.875rem'}
                 onClick={handleClickMovementDialog}
             />
 
             <CommonDialog
                 open={movement}
-                title={''}
+                title={'알림'}
                 message={
                     <Typography>
                         저장하지 않았을 경우 입력한 내용이 날아갑니다.
@@ -95,13 +116,17 @@ const SideBar = (props) => {
 };
 
 SideBar.propTypes = {
-    width: PropTypes.number,
     open: PropTypes.bool,
     handleSideBarClose: PropTypes.func,
-    steps: PropTypes.object,
+    steps: PropTypes.array,
     activeStep: PropTypes.number,
     completed: PropTypes.object,
-    handleActiveStep: PropTypes.func
+    handleActiveStep: PropTypes.func,
+    typeValue: PropTypes.string,
+    layoutTooltip: PropTypes.bool,
+    contentsTooltip: PropTypes.bool,
+    handleCloseLayoutTooltip: PropTypes.func,
+    handleCloseContentsTooltip: PropTypes.func
 };
 
 export default SideBar;

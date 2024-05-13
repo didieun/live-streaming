@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Box, Button, Typography } from '@mui/material';
 import TabBox from '../tabs/TabBox';
 import ContentsBox from './ContentsBox';
 import PropTypes from 'prop-types';
 import TestImage from '../../../../../assets/images/TestImage.png';
-import { ArrowTooltipStyle, IconButtonStyle, Flex } from '../../../common/styled/CommonStyle';
+import { ArrowTooltipStyle, IconButtonStyle, Flex, ArrowTooltipInStyle } from '../../../common/styled/CommonStyle';
 import { ReactComponent as QuestionIcon } from '../../../../../assets/images/QuestionIcon.svg';
 import { ReactComponent as TooltipCloseIcon } from '../../../../../assets/images/TooltipCloseIcon.svg';
 import { ReactComponent as ArrowClockwiseIcon } from '../../../../../assets/images/ArrowClockwiseIcon.svg';
@@ -13,16 +13,18 @@ import TooltipArrowBlue from '../../../../../assets/images/TooltipArrowBlue.svg'
 import AddContentsBox from './AddContentsBox';
 import { useViewSize } from '../../../../../store';
 import CommonButton from '../../../common/CommonButton';
+import { contentsHeight, contentsMaxHeight } from '../../index';
 
-const Container = styled(Box)(({ theme, contentsWidth }) => ({
+const Container = styled(Box)(({ theme }) => ({
+    width: '100%',
     display: 'flex',
     justifyContent: 'space-between'
 }));
 
-const ContentsBoxStyle = styled(Box)(({ theme, contentsWidth }) => ({
-    width: contentsWidth < 800 ? '100%' : 'calc((100% / 2) - 9px)',
-    borderRadius: 4,
-    marginTop: '25px'
+const ContentsBoxStyle = styled(Box)(({ theme, open, isMd, isSd }) => ({
+    width: open ? (isSd ? '100%' : 'calc((100% / 2) - 9px)') : isSd ? '100%' : 'calc((100% / 2) - 9px)',
+    marginBottom: open ? (isSd ? '25px' : 0) : isSd ? '25px' : 0,
+    borderRadius: 4
 }));
 
 const ContentsTop = styled(Box)(({ theme }) => ({
@@ -43,9 +45,23 @@ const ContentsTop = styled(Box)(({ theme }) => ({
     }
 }));
 
-const ContentsBoxIn = styled(Box)(({ theme, radioValue, contentsMaxHeight, contentsHeight, contentsWidth }) => ({
+const ContentsBoxIn = styled(Box)(({ theme, radioValue, open, isMd, isSd }) => ({
     width: '100%',
-    height: radioValue ? (contentsWidth < 800 ? 800 : contentsMaxHeight) : contentsWidth < 800 ? 800 : contentsHeight,
+    height: open
+        ? radioValue
+            ? isMd
+                ? 800
+                : `${contentsMaxHeight}`
+            : isMd
+              ? 800
+              : `${contentsHeight}`
+        : radioValue
+          ? isSd
+              ? 800
+              : `${contentsMaxHeight}`
+          : isSd
+            ? 800
+            : `${contentsHeight}`,
     minHeight: 700,
     border: '1px solid #D9D9D9',
     borderTop: 0,
@@ -58,16 +74,16 @@ const TabsBox = styled(Box)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     '& .MuiTabs-root': {
-        width: 'calc(100% - 120px) !important'
+        flex: 4
     }
 }));
 
-const ContentsListBox = styled(Box)(({ theme, contentsWidth }) => ({
-    width: 'calc(100% - 14px)',
+const ContentsListBox = styled(Box)(({ theme, open, isMd, isSd }) => ({
+    width: open ? (isMd ? 'calc(100% - 5px)' : 'calc(100% - 10px)') : isSd ? 'calc(100% - 5px)' : 'calc(100% - 10px)',
     height: 'calc(100% - 57px)',
     boxSizing: 'border-box',
     overflowY: 'auto',
-    padding: contentsWidth < 1000 ? '26px 5px 26px 10px' : '26px 14px 26px 28px',
+    padding: open ? (isMd ? '26px 5px 26px 10px' : '26px 10px 26px 24px') : isSd ? '26px 5px 26px 10px' : '26px 10px 26px 24px',
     '&::-webkit-scrollbar': {
         width: '5px'
     },
@@ -99,7 +115,7 @@ const GridBox = styled(Box)(({ theme }) => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
     gridTemplateRows: 'auto',
-    gap: 25
+    gap: '25px 22px'
 }));
 
 const EmptyBox = styled(Box)(({ theme }) => ({
@@ -117,7 +133,6 @@ const EmptyBox = styled(Box)(({ theme }) => ({
 }));
 
 const InfoBox = styled(Box)(({ theme }) => ({
-    width: 119,
     height: 56,
     boxSizing: 'border-box',
     borderRight: '1px solid #ddd',
@@ -127,6 +142,8 @@ const InfoBox = styled(Box)(({ theme }) => ({
     justifyContent: 'center',
     background: '#F5F5F5',
     cursor: 'pointer',
+    flex: 1,
+    padding: '0 8px',
     '& p': {
         fontSize: '1rem',
         color: '#1976D2',
@@ -136,36 +153,39 @@ const InfoBox = styled(Box)(({ theme }) => ({
 }));
 
 const ButtonStyle = styled(Button)(({ theme }) => ({
-    padding: 0,
-    background: 'transparent',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    '&:hover': {
-        background: 'transparent'
-    },
-    '& p': {
-        fontSize: '0.875rem',
-        color: '#fff',
-        fontWeight: 600,
-        letterSpacing: '0.5px'
-    },
-    '& svg': {
-        marginRight: 8
-    },
-    '&.Mui-disabled': {
+    '&.MuiButtonBase-root': {
+        padding: 0,
         background: 'transparent',
-        '& p': {
-            color: '#D9D9D9'
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '&:hover': {
+            background: 'transparent'
         },
-        '& path': {
-            fill: '#D9D9D9'
+        '& p': {
+            fontSize: '0.875rem',
+            color: '#fff',
+            fontWeight: 600,
+            letterSpacing: '0.5px'
+        },
+        '& svg': {
+            marginRight: 8
+        },
+        '&.Mui-disabled': {
+            background: 'transparent',
+            '& p': {
+                color: '#D9D9D9'
+            },
+            '& path': {
+                fill: '#D9D9D9'
+            }
         }
     }
 }));
 
 function ContentsComponent(props) {
-    const { radioValue, contentsMaxHeight, contentsHeight, contentsWidth } = props;
+    const { isMd, isSd, isLg } = useViewSize();
+    const { open, radioValue } = props;
     const [question, setQuestion] = React.useState(false);
     const [tabValue, setTabValue] = React.useState('전체');
     const [studentTabValue, setStudentTabValue] = React.useState('전체 수강생보기');
@@ -279,34 +299,22 @@ function ContentsComponent(props) {
     };
 
     return (
-        <Container
-            sx={{
-                position: 'absolute',
-                left: props.rect.x,
-                top: props.rect.y,
-                width: props.rect.width,
-                height: props.rect.height,
-                flexDirection: props.rect.direction
-            }}
-        >
-            <ContentsBoxStyle sx={{ marginBottom: props.rect.width < 800 ? '25px' : 0 }} contentsWidth={props.rect.width}>
+        <Container open={open} isMd={isMd} isSd={isSd} sx={{ flexDirection: open ? (isSd ? 'column' : 'row') : isSd ? 'column' : 'row' }}>
+            <ContentsBoxStyle open={open} isMd={isMd} isSd={isSd}>
                 <ContentsTop>
                     <Typography>검색된 콘텐츠</Typography>
                 </ContentsTop>
-                <ContentsBoxIn
-                    radioValue={radioValue}
-                    contentsMaxHeight={contentsMaxHeight}
-                    contentsHeight={contentsHeight}
-                    contentsWidth={props.rect.width}
-                >
+                <ContentsBoxIn radioValue={radioValue} open={open} isMd={isMd} isSd={isSd}>
                     <TabBox
-                        contentsWidth={props.rect.width}
+                        open={open}
+                        isMd={isMd}
+                        isSd={isSd}
                         tabValue={tabValue}
                         scrollButtons={false}
                         valueList={valueList}
                         handleChangeTab={handleChangeTab}
                     />
-                    <ContentsListBox contentsWidth={props.rect.width}>
+                    <ContentsListBox open={open} isMd={isMd} isSd={isSd}>
                         <TitleText>{tabValue}</TitleText>
                         {contentsList.length === 0 ? (
                             <EmptyBox>
@@ -329,7 +337,7 @@ function ContentsComponent(props) {
                 </ContentsBoxIn>
             </ContentsBoxStyle>
 
-            <ContentsBoxStyle contentsWidth={props.rect.width}>
+            <ContentsBoxStyle open={open} isMd={isMd} isSd={isSd}>
                 <ContentsTop>
                     <Typography>강의 콘텐츠 담기</Typography>
                     <Flex>
@@ -343,26 +351,20 @@ function ContentsComponent(props) {
                             background={'#D8E5FC'}
                             color={'#000'}
                             fontWeight={600}
-                            borderRadius={'4px'}
                             fontSize={'0.875rem'}
                             disabled={false}
                             startIcon={<ArrowClockwiseIcon />}
                         />
                     </Flex>
                 </ContentsTop>
-                <ContentsBoxIn
-                    radioValue={radioValue}
-                    contentsMaxHeight={contentsMaxHeight}
-                    contentsHeight={contentsHeight}
-                    contentsWidth={props.rect.width}
-                >
+                <ContentsBoxIn radioValue={radioValue} open={open} isMd={isMd} isSd={isSd}>
                     <TabsBox>
                         <InfoBox onClick={handleClickQuestion}>
                             <Typography>강의대상</Typography>
                             <ArrowTooltipStyle
                                 open={question}
                                 title={
-                                    <Box>
+                                    <ArrowTooltipInStyle>
                                         <Typography sx={{ marginRight: 25 }}>
                                             전체 학생 또는 학생별
                                             <br />
@@ -371,10 +373,10 @@ function ContentsComponent(props) {
                                         <IconButtonStyle onClick={handleCloseQuestion} disableRipple>
                                             <TooltipCloseIcon />
                                         </IconButtonStyle>
-                                    </Box>
+                                    </ArrowTooltipInStyle>
                                 }
                                 placement="bottom"
-                                top={'-20px'}
+                                top={'-9px'}
                                 left={'50%'}
                                 triangle={TooltipArrowBlue}
                             >
@@ -390,9 +392,9 @@ function ContentsComponent(props) {
                             handleChangeTab={handleChangeStudentTab}
                         />
                     </TabsBox>
-                    <ContentsListBox contentsWidth={props.rect.width}>
+                    <ContentsListBox open={open} isMd={isMd} isSd={isSd}>
                         {addContentsList.map((list, i) => (
-                            <AddContentsBox index={i} list={list} contentsWidth={props.rect.width} />
+                            <AddContentsBox index={i} list={list} open={open} />
                         ))}
                     </ContentsListBox>
                 </ContentsBoxIn>
@@ -402,10 +404,8 @@ function ContentsComponent(props) {
 }
 
 ContentsComponent.propTypes = {
-    radioValue: PropTypes.string,
-    contentsMaxHeight: PropTypes.string,
-    contentsHeight: PropTypes.string,
-    contentsWidth: PropTypes.object
+    open: PropTypes.bool,
+    radioValue: PropTypes.string
 };
 
 export default ContentsComponent;

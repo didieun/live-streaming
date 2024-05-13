@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import { useViewSize } from '../../../../store';
 import React from 'react';
-import CommonRadio from '../../common/CommonRadio';
+import CommonRadioGroup from '../../common/CommonRadioGroup';
 import CommonSelect from '../../common/CommonSelect';
 import View from '../view/View';
 import CommonButton from '../../common/CommonButton';
@@ -21,11 +21,14 @@ const SelectBox = styled(Box)(({ theme, isMSmall }) => ({
     flexDirection: isMSmall ? 'column' : 'row',
     alignItems: 'center',
     '& .MuiFormControl-root': {
-        width: isMSmall ? '100%' : '255px !important',
+        minWidth: isMSmall ? '100%' : '255px !important',
         '&:last-child': {
             marginLeft: isMSmall ? 0 : 16,
             marginTop: isMSmall ? 16 : 0
         }
+    },
+    '& .MuiInputBase-root': {
+        '& .MuiSelect-select': {}
     }
 }));
 
@@ -92,7 +95,7 @@ const Learning = (props) => {
                 <CommonSelect filter={nameFilter} handleChangeFilter={handleChangeNameFilter} menuList={nameMenuList} />
             </SelectBox>
             <ControlBoxSpace sort={sort}>
-                {sort && <CommonRadio handleChange={handleChange} value={value} valueList={valueList} />}
+                {sort && <CommonRadioGroup handleChange={handleChange} value={value} valueList={valueList} />}
 
                 <ButtonBox isSmall={isSmall}>
                     <CommonButton
@@ -100,26 +103,26 @@ const Learning = (props) => {
                         height={'48px'}
                         text={'다운로드'}
                         background={'#fff'}
-                        border={'#dddddd'}
+                        border={'#D5D4DC'}
+                        hoverColor={'#fff'}
+                        hoverBk={'#2F3640'}
                         color={'#737373'}
-                        fontWeight={600}
+                        fontWeight={700}
                         borderRadius={'90px'}
                         fontSize={'1rem'}
-                        hoverBk={'#2f3640'}
-                        hoverColor={'#fff'}
                     />
                     <CommonButton
                         width={'155px'}
                         height={'48px'}
                         text={'첨삭 업로드'}
                         background={'#fff'}
-                        border={'#dddddd'}
+                        border={'#D5D4DC'}
+                        hoverColor={'#fff'}
+                        hoverBk={'#2F3640'}
                         color={'#737373'}
-                        fontWeight={600}
+                        fontWeight={700}
                         borderRadius={'90px'}
                         fontSize={'1rem'}
-                        hoverBk={'#2f3640'}
-                        hoverColor={'#fff'}
                     />
                 </ButtonBox>
             </ControlBoxSpace>

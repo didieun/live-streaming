@@ -4,11 +4,29 @@ import PropTypes from 'prop-types';
 import MainCard from '../../../components/MainCard';
 
 function CommonButton(props) {
-    const { text, width, height, background, color, border, borderRadius, fontSize, disabled, onClick, hoverBk, hoverColor, startIcon } =
-        props;
+    const {
+        component,
+        text,
+        width,
+        height,
+        background,
+        color,
+        border,
+        borderRadius,
+        fontSize,
+        disabled,
+        onClick,
+        hoverBk,
+        hoverColor,
+        startIcon,
+        endIcon,
+        fontWeight,
+        error
+    } = props;
 
     return (
         <ButtonStyle
+            component={component ? component : 'button'}
             width={width}
             height={height}
             background={background}
@@ -19,9 +37,11 @@ function CommonButton(props) {
             onClick={onClick}
             disabled={disabled}
             startIcon={startIcon}
+            endIcon={endIcon}
+            error={error}
             disableRipple
         >
-            <TextStyle color={color} fontSize={fontSize}>
+            <TextStyle color={color} fontSize={fontSize} fontWeight={fontWeight}>
                 {text}
             </TextStyle>
         </ButtonStyle>
@@ -29,6 +49,7 @@ function CommonButton(props) {
 }
 
 CommonButton.propTypes = {
+    component: PropTypes.string,
     text: PropTypes.string,
     width: PropTypes.string,
     height: PropTypes.string,
@@ -40,7 +61,9 @@ CommonButton.propTypes = {
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
     hoverBk: PropTypes.string,
-    hoverColor: PropTypes.string
+    hoverColor: PropTypes.string,
+    fontWeight: PropTypes.number,
+    error: PropTypes.string
 };
 
 export default CommonButton;

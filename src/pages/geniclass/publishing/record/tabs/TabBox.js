@@ -4,31 +4,28 @@ import { styled } from '@mui/material/styles';
 import { Tabs, Tab } from '@mui/material';
 import { useViewSize } from '../../../../store';
 
-const TabsBox = styled(Tabs)(({ theme, isSd }) => ({
-    '&.MuiTabs-root': {
-        width: '100%',
-        '& .MuiTabs-flexContainer': {},
-        '& .MuiButtonBase-root': {
-            minWidth: 84,
-            height: 66,
-            padding: 0,
-            fontSize: '1.5rem',
-            color: '#dddddd',
-            textTransform: 'none',
-            lineHeight: 0.83,
-            fontWeight: 600,
-            background: '#fff',
-            '&.Mui-selected': {
-                color: '#2f3640'
-            },
-            '&:last-child': {
-                marginLeft: 30
-            }
-        },
-        '& .MuiTabs-indicator': {
-            height: 5,
-            background: '#f5cd79'
+const TabsStyle = styled(Tabs)(({ theme }) => ({
+    width: '100%',
+    marginTop: 26,
+    paddingBottom: 20,
+    '& .MuiTabs-flexContainer': {
+        gap: 15
+    },
+    '& .MuiTab-root': {
+        minWidth: 30,
+        boxSizing: 'border-box',
+        padding: '16px 0px',
+        color: '#bbb',
+        fontSize: '1.5rem',
+        fontWeight: 500,
+        letterSpacing: '-0.5px',
+        '&.Mui-selected': {
+            color: '#333'
         }
+    },
+    '& .MuiTabs-indicator': {
+        height: 3,
+        backgroundColor: '#F5CD79'
     }
 }));
 
@@ -36,11 +33,11 @@ function TabBox(props) {
     const { tabValue, handleChangeTab, valueList } = props;
 
     return (
-        <TabsBox value={tabValue} onChange={handleChangeTab} aria-label="wrapped label tabs example">
+        <TabsStyle value={tabValue} onChange={handleChangeTab} aria-label="wrapped label tabs example">
             {valueList.map((list, i) => (
                 <Tab key={i} value={list.value} label={list.label} disableRipple />
             ))}
-        </TabsBox>
+        </TabsStyle>
     );
 }
 

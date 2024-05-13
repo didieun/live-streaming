@@ -12,7 +12,7 @@ import PenConnectionComponent from '../dialog/PenConnectionComponent';
 import AddLearningHistoryComponent from '../dialog/AddLearningHistoryComponent';
 import { Container, ContainerIn } from '../common/styled/CommonStyle';
 
-const TabMargin = styled(Box)(({ theme, isHd }) => ({
+const TabMargin = styled(Box)(({ theme }) => ({
     marginBottom: 25
 }));
 
